@@ -128,3 +128,12 @@
     @apply font-sans;
   }
 }
+
+@utility bg-diagonal-grid {
+  background-color: var(--background);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in oklch, var(--foreground) 12%, transparent) 0 1px,
+    transparent 1px 22px
+  );
+}
