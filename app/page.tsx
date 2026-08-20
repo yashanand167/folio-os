@@ -1,3 +1,4 @@
+import { CornerStrokes } from "@/components/corner-strokes";
 import { Header } from "@/components/header";
 
 export default function Home() {
@@ -40,13 +41,20 @@ export default function Home() {
           </div>
           <div className="relative z-10 mt-5 flex gap-2">
             <button className="bg-black px-4 py-2 text-white">Get Started</button>
-            <button className="bg-white px-4 py-2 text-black">View Templates</button>
+            <button className="relative bg-white px-4 py-2 text-black">
+              <CornerStrokes className="border-neutral-300" />
+              View Templates
+            </button>
           </div>
         </div>
         
       </section>
 
-      <section></section>
+      <section className="flex items-center justify-center">
+        <h1 className="text-2xl">
+          Few Simple Steps is all it takes
+        </h1>
+      </section>
     </main>
     </div>
   );
