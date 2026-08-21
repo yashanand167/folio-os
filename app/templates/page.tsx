@@ -3,7 +3,7 @@ import MinimalPage from "@/components/templates/minimal/pages/home";
 
 export default function Templates() {
   return (
-    <div className="relative min-h-screen bg-white">
+    <div className="relative min-h-screen bg-background">
       <MinimalPage />
       <FloatingBar />
     </div>
