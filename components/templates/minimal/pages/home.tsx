@@ -13,14 +13,14 @@ export default function MinimalPage({
 
   return (
     <div
-      className="min-h-screen bg-white text-[15px] text-neutral-950 sm:text-base dark:bg-neutral-950 dark:text-neutral-50"
+      className="bg-page-wash min-h-screen text-[15px] text-neutral-950 sm:text-base dark:text-neutral-50"
       style={{
         fontFamily: typography.fontFamily,
         fontWeight: typography.fontWeight,
         lineHeight: typography.lineHeight,
       }}
     >
-      <div className="border-line-dash-x mx-5 min-h-screen w-auto max-w-3xl sm:mx-8 sm:max-w-4xl md:mx-auto">
+      <div className="border-line-dash-x mx-5 min-h-screen w-auto max-w-3xl bg-white sm:mx-8 sm:max-w-4xl md:mx-auto dark:bg-neutral-950">
         <header
           className="border-line-dash-b flex items-center justify-between gap-3 px-4 pt-8 pb-3 sm:gap-4 sm:px-6 sm:pt-16 sm:pb-4"
         >

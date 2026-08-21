@@ -129,13 +129,46 @@
   }
 }
 
-@utility bg-diagonal-grid {
-  background-color: var(--background);
-  background-image: repeating-linear-gradient(
-    -45deg,
-    color-mix(in oklch, var(--foreground) 12%, transparent) 0 1px,
-    transparent 1px 22px
-  );
+@utility bg-page-wash {
+  background-color: oklch(0.965 0 0);
+  background-image:
+    radial-gradient(
+      ellipse 80% 55% at 50% -8%,
+      oklch(1 0 0 / 0.95),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 45% 40% at 0% 85%,
+      oklch(0.94 0.012 250 / 0.4),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 40% 35% at 100% 15%,
+      oklch(0.945 0.014 85 / 0.32),
+      transparent 58%
+    ),
+    linear-gradient(180deg, oklch(0.98 0 0), oklch(0.955 0 0));
+
+  &:is(.dark *) {
+    background-color: oklch(0.155 0 0);
+    background-image:
+      radial-gradient(
+        ellipse 80% 55% at 50% -8%,
+        oklch(0.22 0 0 / 0.9),
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 45% 40% at 0% 85%,
+        oklch(0.2 0.02 250 / 0.28),
+        transparent 62%
+      ),
+      radial-gradient(
+        ellipse 40% 35% at 100% 15%,
+        oklch(0.2 0.018 80 / 0.22),
+        transparent 58%
+      ),
+      linear-gradient(180deg, oklch(0.17 0 0), oklch(0.14 0 0));
+  }
 }
 
 @utility border-line-dash-x {
