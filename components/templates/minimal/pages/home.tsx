@@ -9,30 +9,24 @@ export default function MinimalPage({
 }: {
   data?: Portfolio;
 }) {
-  const { typography, spacing } = designSystem;
+  const { typography } = designSystem;
 
   return (
     <div
-      className="min-h-screen bg-white text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50"
+      className="min-h-screen bg-white text-[15px] text-neutral-950 sm:text-base dark:bg-neutral-950 dark:text-neutral-50"
       style={{
         fontFamily: typography.fontFamily,
-        fontSize: typography.fontSize,
         fontWeight: typography.fontWeight,
         lineHeight: typography.lineHeight,
       }}
     >
-      <div className="border-line-dash-x mx-auto min-h-screen w-full max-w-4xl">
+      <div className="border-line-dash-x mx-5 min-h-screen w-auto max-w-3xl sm:mx-8 sm:max-w-4xl md:mx-auto">
         <header
-          className="border-line-dash-b flex items-center justify-between gap-4"
-          style={{
-            paddingInline: spacing.padding * 1.5,
-            paddingTop: spacing.padding * 4,
-            paddingBottom: spacing.padding,
-          }}
+          className="border-line-dash-b flex items-center justify-between gap-3 px-4 pt-8 pb-3 sm:gap-4 sm:px-6 sm:pt-16 sm:pb-4"
         >
-          <p className="text-sm tracking-tight">{data.name}</p>
-          <nav className="flex items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
-            <div className="flex items-center gap-4">
+          <p className="truncate text-xs tracking-tight sm:text-sm">{data.name}</p>
+          <nav className="flex shrink-0 items-center gap-2.5 text-xs text-neutral-500 sm:gap-4 sm:text-sm dark:text-neutral-400">
+            <div className="flex items-center gap-2.5 sm:gap-4">
               <SoftClickLink href="#work">Work</SoftClickLink>
               <SoftClickLink href="#about">About</SoftClickLink>
               {data.resumeUrl ? (
@@ -57,22 +51,16 @@ export default function MinimalPage({
           />
         </header>
 
-        <div
-          style={{
-            paddingInline: spacing.padding * 1.5,
-            paddingBottom: spacing.padding * 4,
-          }}
-        >
-          <section
-            className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between"
-            style={{ marginTop: spacing.margin * 5 }}
-          >
-            <div>
-              <h1 className="text-4xl tracking-tight sm:text-5xl">{data.name}</h1>
-              <p className="mt-3 text-lg text-neutral-800 dark:text-neutral-200">
+        <div className="px-4 pb-10 sm:px-6 sm:pb-16">
+          <section className="mt-8 flex flex-col gap-6 sm:mt-20 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+            <div className="min-w-0">
+              <h1 className="text-[1.75rem] leading-tight tracking-tight sm:text-4xl md:text-5xl">
+                {data.name}
+              </h1>
+              <p className="mt-2 text-base text-neutral-800 sm:mt-3 sm:text-lg dark:text-neutral-200">
                 {data.profession}
               </p>
-              <p className="mt-6 max-w-md text-neutral-500 dark:text-neutral-400">
+              <p className="mt-4 max-w-md text-sm text-neutral-500 sm:mt-6 sm:text-base dark:text-neutral-400">
                 I design and build clear, quiet interfaces for products that need to
                 feel considered.
               </p>
@@ -81,23 +69,23 @@ export default function MinimalPage({
               <img
                 src={data.profileImage}
                 alt={data.name}
-                className="aspect-[3/4] w-40 object-cover sm:w-48"
+                className="aspect-[3/4] w-28 object-cover sm:w-40 md:w-48"
               />
             ) : null}
           </section>
 
-          <section id="work" style={{ marginTop: spacing.margin * 5 }}>
-            <h2 className="text-sm tracking-wide text-neutral-500 uppercase dark:text-neutral-400">
+          <section id="work" className="mt-10 sm:mt-20">
+            <h2 className="text-[11px] tracking-wide text-neutral-500 uppercase sm:text-sm dark:text-neutral-400">
               Selected work
             </h2>
-            <ul className="mt-6 flex flex-col" style={{ gap: spacing.margin * 1.5 }}>
+            <ul className="mt-4 flex flex-col gap-4 sm:mt-6 sm:gap-6">
               {data.projects.map((project) => (
                 <li key={project.id}>
                   <SoftClickLink href={project.url ?? "#"} className="block">
-                    <div className="flex items-baseline justify-between gap-4">
-                      <h3 className="text-lg tracking-tight">{project.title}</h3>
+                    <div className="flex items-baseline justify-between gap-3 sm:gap-4">
+                      <h3 className="text-base tracking-tight sm:text-lg">{project.title}</h3>
                       {project.tags?.[0] ? (
-                        <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                        <span className="shrink-0 text-xs text-neutral-500 sm:text-sm dark:text-neutral-400">
                           {project.tags[0]}
                         </span>
                       ) : null}
@@ -113,25 +101,25 @@ export default function MinimalPage({
             </ul>
           </section>
 
-          <section id="about" style={{ marginTop: spacing.margin * 5 }}>
-            <h2 className="text-sm tracking-wide text-neutral-500 uppercase dark:text-neutral-400">
+          <section id="about" className="mt-10 sm:mt-20">
+            <h2 className="text-[11px] tracking-wide text-neutral-500 uppercase sm:text-sm dark:text-neutral-400">
               About
             </h2>
-            <div className="mt-6 flex flex-col" style={{ gap: spacing.margin * 2 }}>
+            <div className="mt-4 flex flex-col gap-6 sm:mt-6 sm:gap-8">
               <div>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                <p className="text-xs text-neutral-500 sm:text-sm dark:text-neutral-400">
                   Experience
                 </p>
-                <ul className="mt-3 flex flex-col gap-3">
+                <ul className="mt-2 flex flex-col gap-2.5 sm:mt-3 sm:gap-3">
                   {data.experiences.map((experience) => (
                     <li
                       key={experience.id}
-                      className="flex flex-wrap justify-between gap-2"
+                      className="flex flex-wrap justify-between gap-x-3 gap-y-1 text-sm sm:text-base"
                     >
                       <span>
                         {experience.role}, {experience.company}
                       </span>
-                      <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                      <span className="text-xs text-neutral-500 sm:text-sm dark:text-neutral-400">
                         {experience.startDate}
                         {experience.endDate ? ` – ${experience.endDate}` : ""}
                       </span>
@@ -140,20 +128,20 @@ export default function MinimalPage({
                 </ul>
               </div>
               <div>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                <p className="text-xs text-neutral-500 sm:text-sm dark:text-neutral-400">
                   Education
                 </p>
-                <ul className="mt-3 flex flex-col gap-2">
+                <ul className="mt-2 flex flex-col gap-2 sm:mt-3">
                   {data.education.map((item) => (
                     <li
                       key={item.id}
-                      className="flex flex-wrap justify-between gap-2"
+                      className="flex flex-wrap justify-between gap-x-3 gap-y-1 text-sm sm:text-base"
                     >
                       <span>
                         {item.degree}
                         {item.field ? ` ${item.field}` : ""}, {item.institution}
                       </span>
-                      <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                      <span className="text-xs text-neutral-500 sm:text-sm dark:text-neutral-400">
                         {item.endDate}
                       </span>
                     </li>
@@ -161,10 +149,10 @@ export default function MinimalPage({
                 </ul>
               </div>
               <div>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                <p className="text-xs text-neutral-500 sm:text-sm dark:text-neutral-400">
                   Skills
                 </p>
-                <p className="mt-3 text-neutral-800 dark:text-neutral-200">
+                <p className="mt-2 text-sm text-neutral-800 sm:mt-3 sm:text-base dark:text-neutral-200">
                   {data.skills.map((skill) => skill.name).join("  ·  ")}
                 </p>
               </div>
@@ -177,13 +165,7 @@ export default function MinimalPage({
           <span className="line-cross right-0 bottom-0 translate-x-1/2 translate-y-1/2" />
         </div>
 
-        <footer
-            className="flex flex-wrap gap-4 text-sm text-neutral-500 dark:text-neutral-400"
-            style={{
-              paddingInline: spacing.padding * 1.5,
-              paddingBlock: spacing.padding * 4,
-            }}
-          >
+        <footer className="flex flex-wrap gap-3 px-4 py-8 text-xs text-neutral-500 sm:gap-4 sm:px-6 sm:py-16 sm:text-sm dark:text-neutral-400">
             {data.socialLinks.email ? (
               <SoftClickLink href={`mailto:${data.socialLinks.email}`}>
                 {data.socialLinks.email}
