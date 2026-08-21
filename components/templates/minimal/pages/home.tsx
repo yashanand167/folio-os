@@ -21,9 +21,9 @@ export default function MinimalPage({
         lineHeight: typography.lineHeight,
       }}
     >
-      <div className="mx-auto min-h-screen w-full max-w-4xl border-x border-dotted border-neutral-300 dark:border-neutral-700">
+      <div className="border-line-dash-x mx-auto min-h-screen w-full max-w-4xl">
         <header
-          className="flex items-center justify-between gap-4 border-b border-dotted border-neutral-300 dark:border-neutral-700"
+          className="border-line-dash-b flex items-center justify-between gap-4"
           style={{
             paddingInline: spacing.padding * 1.5,
             paddingTop: spacing.padding * 4,
@@ -43,10 +43,18 @@ export default function MinimalPage({
             </div>
             <span
               aria-hidden
-              className="h-3.5 w-px bg-neutral-300 dark:bg-neutral-600"
+              className="border-line-dash-l h-4"
             />
             <ThemeToggle />
           </nav>
+          <span
+            aria-hidden
+            className="line-cross bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
+          />
+          <span
+            aria-hidden
+            className="line-cross right-0 bottom-0 translate-x-1/2 translate-y-1/2"
+          />
         </header>
 
         <div
@@ -162,10 +170,19 @@ export default function MinimalPage({
               </div>
             </div>
           </section>
+        </div>
 
-          <footer
+        <div className="border-line-dash-b relative" aria-hidden>
+          <span className="line-cross bottom-0 left-0 -translate-x-1/2 translate-y-1/2" />
+          <span className="line-cross right-0 bottom-0 translate-x-1/2 translate-y-1/2" />
+        </div>
+
+        <footer
             className="flex flex-wrap gap-4 text-sm text-neutral-500 dark:text-neutral-400"
-            style={{ marginTop: spacing.margin * 5 }}
+            style={{
+              paddingInline: spacing.padding * 1.5,
+              paddingBlock: spacing.padding * 4,
+            }}
           >
             {data.socialLinks.email ? (
               <SoftClickLink href={`mailto:${data.socialLinks.email}`}>
@@ -183,8 +200,7 @@ export default function MinimalPage({
                 Resume
               </SoftClickLink>
             ) : null}
-          </footer>
-        </div>
+        </footer>
       </div>
     </div>
   );
