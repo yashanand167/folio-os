@@ -1,5 +1,6 @@
 import HeroSection from "@/components/customs/hero-section";
 import { Header } from "@/components/header";
+import ProcessSection from "@/components/customs/process-section";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
           <h1 className="text-center text-xl sm:text-2xl">
             Few Simple Steps is all it takes
           </h1>
+          <ProcessSection />
         </section>
       </main>
     </div>
