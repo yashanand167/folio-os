@@ -157,7 +157,7 @@ export default function MinimalPage({
           className="border-line-dash-b flex items-center justify-between gap-3 px-4 pt-8 pb-3 sm:gap-4 sm:px-6 sm:pt-16 sm:pb-4"
           variants={dropIn}
         >
-          <p className="truncate text-xs tracking-tight sm:text-sm">{data.name}</p>
+          <p className="truncate text-xs tracking-tight sm:text-sm">{data.name}</p> 
           <nav className="flex shrink-0 items-center gap-2.5 text-xs text-neutral-500 sm:gap-4 sm:text-sm dark:text-neutral-400">
             <div className="flex items-center gap-2.5 sm:gap-4">
               <SoftClickLink href="#work">Work</SoftClickLink>
@@ -235,9 +235,6 @@ export default function MinimalPage({
                 : null,
               data.socialLinks.twitter
                 ? { href: data.socialLinks.twitter, label: "Twitter" }
-                : null,
-              data.socialLinks.website
-                ? { href: data.socialLinks.website, label: "Website" }
                 : null,
             ].filter((link): link is { href: string; label: string } => link !== null);
 
