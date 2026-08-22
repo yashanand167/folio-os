@@ -121,13 +121,13 @@ export default function MinimalPage({
 
         <motion.section variants={dropIn} className="mt-5">
           <DottedRule fullWidth />
-          <div className="flex flex-row items-start gap-3 sm:gap-5">
+          <div className="flex flex-row items-center">
             {data.profileImage ? (
               <div className="flex shrink-0">
                 <img
                   src={data.profileImage}
                   alt={data.name}
-                  className="aspect-square w-28 rounded-full object-cover sm:w-40 md:w-48"
+                  className="aspect-square w-20 rounded-full object-cover sm:w-28 md:w-32"
                 />
                 <span
                   aria-hidden
@@ -135,19 +135,21 @@ export default function MinimalPage({
                 />
               </div>
             ) : null}
-            <div className="flex min-w-0 flex-1 flex-col">
-              <h1 className="pt-3 text-2xl leading-tight tracking-tight sm:pt-4 sm:text-3xl md:text-4xl">
+            <div className="flex min-w-0 flex-1 flex-col justify-center pl-3 sm:pl-5">
+              <h1 className="text-lg leading-tight tracking-tight sm:text-3xl md:text-4xl">
                 {data.name}
               </h1>
-              <p className="mt-1 text-base text-neutral-800 sm:mt-2 sm:text-lg dark:text-neutral-200">
+              <p className="mt-0.5 text-sm text-neutral-800 sm:mt-2 sm:text-lg dark:text-neutral-200">
                 {data.profession}
-              </p>
-              <DottedRule flush className="mt-4 w-full sm:mt-5" />
-              <p className="mt-4 pr-4 text-sm text-neutral-500 sm:mt-5 sm:pr-6 sm:text-base dark:text-neutral-400">
-                {data.description}
               </p>
             </div>
           </div>
+          <DottedRule fullWidth />
+          {data.description ? (
+            <p className="px-4 py-4 text-sm text-neutral-500 sm:px-6 sm:py-5 sm:text-base dark:text-neutral-400">
+              {data.description}
+            </p>
+          ) : null}
           <DottedRule fullWidth />
         </motion.section>
 
