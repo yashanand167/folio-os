@@ -6,7 +6,7 @@ export const samplePortfolio: Portfolio = {
   name: "Alex Rivera",
   profession: "Designer & Developer",
   profileImage:
-    "https://i.pinimg.com/1200x/36/9d/8c/369d8c1a01f21c357fd77dd6538eaea5.jpg",
+    "https://i.pinimg.com/736x/36/7a/92/367a92bd63d45ffdcda017c7cb4ddd5a.jpg",
   resumeUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
   socialLinks: {
     email: "alex@example.com",

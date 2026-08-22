@@ -7,6 +7,7 @@ import { designSystem } from "@/components/templates/minimal/design-system";
 import { samplePortfolio } from "@/components/templates/minimal/data";
 import { SoftClickLink } from "@/components/templates/minimal/soft-click-link";
 import { ThemeToggle } from "@/components/templates/minimal/theme-toggle";
+import { cn } from "@/lib/utils";
 import type { Portfolio } from "@/types/portfolio";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -34,6 +35,31 @@ const listStagger = {
   },
 };
 
+function DottedRule({
+  fullWidth = false,
+  flush = false,
+  className,
+}: {
+  fullWidth?: boolean;
+  flush?: boolean;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      className={cn(
+        fullWidth
+          ? "relative ml-[calc(50%-50vw)] w-screen max-w-[100vw]"
+          : !flush && "px-4 sm:px-6",
+        className,
+      )}
+      aria-hidden
+      variants={dropIn}
+    >
+      <div className="h-px w-full bg-[repeating-linear-gradient(to_right,#d4d4d4_0_10px,transparent_10px_16px)] dark:bg-[repeating-linear-gradient(to_right,#525252_0_10px,transparent_10px_16px)]" />
+    </motion.div>
+  );
+}
+
 export default function MinimalPage({
   data = samplePortfolio,
 }: {
@@ -43,7 +69,7 @@ export default function MinimalPage({
 
   return (
     <div
-      className="bg-page-wash min-h-screen text-[15px] text-neutral-950 sm:text-base dark:text-neutral-50"
+      className="bg-page-wash min-h-screen overflow-x-hidden text-[15px] text-neutral-950 sm:text-base dark:text-neutral-50"
       style={{
         fontFamily: typography.fontFamily,
         fontWeight: typography.fontWeight,
@@ -84,36 +110,52 @@ export default function MinimalPage({
           />
         </motion.header>
 
-        <motion.div className="px-4 pb-10 sm:px-6 sm:pb-16" variants={stagger}>
-          <motion.section
-            className="mt-8 flex flex-row items-start gap-3 sm:mt-20 sm:gap-5"
-            variants={dropIn}
-          >
+        <motion.section
+          className="px-4 py-3 sm:px-6 sm:py-4"
+          variants={dropIn}
+        >
+          <p className="text-center text-xs tracking-wide text-neutral-500 sm:text-sm dark:text-neutral-400">
+            code crafting pixels one at a time
+          </p>
+        </motion.section>
+
+        <motion.section variants={dropIn} className="mt-5">
+          <DottedRule fullWidth />
+          <div className="flex flex-row items-start gap-3 sm:gap-5">
             {data.profileImage ? (
-              <img
-                src={data.profileImage}
-                alt={data.name}
-                className="aspect-square w-28 shrink-0 object-cover sm:w-40 md:w-48"
-              />
+              <div className="flex shrink-0">
+                <img
+                  src={data.profileImage}
+                  alt={data.name}
+                  className="aspect-square w-28 rounded-full object-cover sm:w-40 md:w-48"
+                />
+                <span
+                  aria-hidden
+                  className="w-px self-stretch bg-[repeating-linear-gradient(to_bottom,#d4d4d4_0_10px,transparent_10px_16px)] dark:bg-[repeating-linear-gradient(to_bottom,#525252_0_10px,transparent_10px_16px)]"
+                />
+              </div>
             ) : null}
-            <div className="min-w-0">
-              <h1 className="text-[1.75rem] leading-tight tracking-tight sm:text-4xl md:text-5xl">
+            <div className="flex min-w-0 flex-1 flex-col">
+              <h1 className="pt-3 text-2xl leading-tight tracking-tight sm:pt-4 sm:text-3xl md:text-4xl">
                 {data.name}
               </h1>
               <p className="mt-1 text-base text-neutral-800 sm:mt-2 sm:text-lg dark:text-neutral-200">
                 {data.profession}
               </p>
-              <p className="mt-3 max-w-md text-sm text-neutral-500 sm:mt-4 sm:text-base dark:text-neutral-400">
+              <DottedRule flush className="mt-4 w-full sm:mt-5" />
+              <p className="mt-4 pr-4 text-sm text-neutral-500 sm:mt-5 sm:pr-6 sm:text-base dark:text-neutral-400">
                 {data.description}
               </p>
             </div>
-          </motion.section>
+          </div>
+          <DottedRule fullWidth />
+        </motion.section>
 
-          <motion.section
-            id="work"
-            className="mt-10 sm:mt-20"
-            variants={dropIn}
-          >
+        <motion.section
+          id="work"
+          className="px-4 py-10 sm:px-6 sm:py-16"
+          variants={dropIn}
+        >
             <h2 className="text-[11px] tracking-wide text-neutral-500 uppercase sm:text-sm dark:text-neutral-400">
               Selected work
             </h2>
@@ -160,13 +202,15 @@ export default function MinimalPage({
                 );
               })}
             </motion.ul>
-          </motion.section>
+        </motion.section>
 
-          <motion.section
-            id="about"
-            className="mt-10 sm:mt-20"
-            variants={dropIn}
-          >
+        <DottedRule />
+
+        <motion.section
+          id="about"
+          className="px-4 py-10 sm:px-6 sm:py-16"
+          variants={dropIn}
+        >
             <h2 className="text-[11px] tracking-wide text-neutral-500 uppercase sm:text-sm dark:text-neutral-400">
               About
             </h2>
@@ -230,8 +274,7 @@ export default function MinimalPage({
                 </p>
               </div>
             </div>
-          </motion.section>
-        </motion.div>
+        </motion.section>
 
         <motion.div className="border-line-dash-b relative" aria-hidden variants={dropIn}>
           <span className="line-cross bottom-0 left-0 -translate-x-1/2 translate-y-1/2" />
