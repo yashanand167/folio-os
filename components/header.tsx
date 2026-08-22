@@ -11,15 +11,15 @@ export function Header() {
           <CornerStrokes />
           <Link
             href="/"
-            className="text-xs font-semibold tracking-tight sm:text-sm"
+            className="text-xs font-semibold tracking-tight sm:text-sm text-black"
           >
             Folio OS
           </Link>
           <div className="flex items-center gap-1">
-            <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
+            <Button variant="ghost" size="sm" className="hidden sm:inline-flex text-black">
               Sign in
             </Button>
-            <Button size="sm" className="sm:h-9 sm:px-2.5 sm:text-sm">
+            <Button size="sm" className="sm:h-9 sm:px-2.5 sm:text-sm bg-black text-white">
               Get started
             </Button>
           </div>

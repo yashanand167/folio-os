@@ -29,7 +29,7 @@ export default function HeroSection() {
                   "radial-gradient(ellipse 90% 85% at 20% 55%, black 40%, transparent 75%)",
               }}
             />
-            <h1 className="relative z-10 text-2xl leading-tight font-medium tracking-tight sm:text-3xl md:text-4xl">
+            <h1 className="relative z-10 text-2xl leading-tight font-medium tracking-tight sm:text-3xl md:text-4xl text-black">
               Introducing Folio OS
             </h1>
             <p className="relative z-10 mt-2 max-w-xl text-sm text-neutral-700 sm:text-lg">
