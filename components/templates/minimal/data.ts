@@ -6,7 +6,7 @@ export const samplePortfolio: Portfolio = {
   name: "Alex Rivera",
   profession: "Designer & Developer",
   profileImage:
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+    "https://i.pinimg.com/1200x/36/9d/8c/369d8c1a01f21c357fd77dd6538eaea5.jpg",
   resumeUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
   socialLinks: {
     email: "alex@example.com",
@@ -14,6 +14,7 @@ export const samplePortfolio: Portfolio = {
     github: "https://github.com",
     linkedin: "https://linkedin.com",
   },
+  description: "I design and build clear, quiet interfaces for products that need to feel considered.",
   experiences: [
     {
       id: "1",

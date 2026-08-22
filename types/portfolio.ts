@@ -46,6 +46,7 @@ export interface Portfolio {
   portfolioType: string;
   name: string;
   profession: string;
+  description?: string;
   profileImage?: string;
   resumeUrl?: string;
   socialLinks: SocialLinks;
