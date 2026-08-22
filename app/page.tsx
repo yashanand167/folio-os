@@ -9,12 +9,12 @@ export default function Home() {
         <Header />
         <HeroSection />
 
-        <section className="flex items-center justify-center px-4 py-12">
+        {/* <section className="flex items-center justify-center px-4 py-12">
           <h1 className="text-center text-xl sm:text-2xl text-black">
             Few Simple Steps is all it takes
           </h1>
           <ProcessSection />
-        </section>
+        </section> */}
       </main>
     </div>
   );

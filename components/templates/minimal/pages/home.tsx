@@ -225,7 +225,7 @@ export default function MinimalPage({
           {(() => {
             const links = [
               data.socialLinks.email
-                ? { href: `mailto:${data.socialLinks.email}`, label: data.socialLinks.email }
+                ? { href: `mailto:${data.socialLinks.email}`, label: "Mail" }
                 : null,
               data.socialLinks.github
                 ? { href: data.socialLinks.github, label: "GitHub" }
@@ -401,7 +401,7 @@ export default function MinimalPage({
           variants={dropIn}
         >
           <p className="text-[11px] tracking-wide text-neutral-400 sm:text-xs dark:text-neutral-500">
-            crafting digital experience with love ❤️
+            Crafting digital experience with love ❤️
           </p>
         </motion.footer>
       </motion.div>
