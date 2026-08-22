@@ -115,7 +115,13 @@ export default function MinimalPage({
           variants={dropIn}
         >
           <p className="text-center text-xs tracking-wide text-neutral-500 sm:text-sm dark:text-neutral-400">
+            <span aria-hidden className="mr-1.5 font-mono text-neutral-400 dark:text-neutral-500">
+              {"<"}
+            </span>
             code crafting pixels one at a time
+            <span aria-hidden className="ml-1.5 font-mono text-neutral-400 dark:text-neutral-500">
+              {"/>"}
+            </span>
           </p>
         </motion.section>
 
