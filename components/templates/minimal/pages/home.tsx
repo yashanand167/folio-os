@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 
 import { designSystem } from "@/components/templates/minimal/design-system";
@@ -120,13 +121,30 @@ export default function MinimalPage({
               className="mt-4 flex flex-col gap-4 sm:mt-6 sm:gap-6"
               variants={listStagger}
             >
-              {data.projects.map((project) => (
-                <motion.li key={project.id} variants={dropIn}>
-                  <SoftClickLink href={project.url ?? "#"} className="block">
+              {data.projects.map((project) => {
+                const href = project.url?.trim();
+                const isExternal = Boolean(href && /^https?:\/\//.test(href));
+
+                return (
+                  <motion.li key={project.id} variants={dropIn}>
                     <div className="flex items-baseline justify-between gap-3 sm:gap-4">
-                      <h3 className="text-base tracking-tight sm:text-lg">
-                        {project.title}
-                      </h3>
+                      {href ? (
+                        <SoftClickLink
+                          href={href}
+                          target={isExternal ? "_blank" : undefined}
+                          rel={isExternal ? "noreferrer" : undefined}
+                          className="inline-flex items-center gap-1"
+                        >
+                          <h3 className="text-base tracking-tight underline decoration-neutral-950 underline-offset-4 sm:text-lg dark:decoration-neutral-50">
+                            {project.title}
+                          </h3>
+                          <ArrowUpRight className="size-3.5 shrink-0 sm:size-4" />
+                        </SoftClickLink>
+                      ) : (
+                        <h3 className="text-base tracking-tight sm:text-lg">
+                          {project.title}
+                        </h3>
+                      )}
                       {project.tags?.[0] ? (
                         <span className="shrink-0 text-xs text-neutral-500 sm:text-sm dark:text-neutral-400">
                           {project.tags[0]}
@@ -138,9 +156,9 @@ export default function MinimalPage({
                         {project.description}
                       </p>
                     ) : null}
-                  </SoftClickLink>
-                </motion.li>
-              ))}
+                  </motion.li>
+                );
+              })}
             </motion.ul>
           </motion.section>
 
