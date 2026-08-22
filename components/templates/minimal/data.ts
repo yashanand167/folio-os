@@ -11,8 +11,8 @@ export const samplePortfolio: Portfolio = {
   socialLinks: {
     email: "alex@example.com",
     website: "https://alexrivera.design",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    github: "https://github.com/alexrivera",
+    linkedin: "https://linkedin.com/in/alexrivera",
   },
   description: "I design and build clear, quiet interfaces for products that need to feel considered.",
   experiences: [

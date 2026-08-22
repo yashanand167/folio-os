@@ -11,9 +11,9 @@ export const samplePortfolio: Portfolio = {
   socialLinks: {
     email: "alex@example.com",
     website: "https://alexrivera.design",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    github: "https://github.com/alexrivera",
+    linkedin: "https://linkedin.com/in/alexrivera",
+    twitter: "https://x.com/alexrivera",
   },
   description:
     "I design interfaces you can feel — motion, sound, and interaction for products that should respond like they are alive.",
@@ -69,7 +69,7 @@ export const samplePortfolio: Portfolio = {
       id: "1",
       title: "Orbit",
       description: "A spatial workspace where research clusters snap, drift, and settle.",
-      url: "#",
+      url: "https://example.com",
       image:
         "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
       tags: ["Product", "Motion"],
@@ -78,7 +78,7 @@ export const samplePortfolio: Portfolio = {
       id: "2",
       title: "Pulse",
       description: "A shared motion language for product teams — springs, easing, and sound.",
-      url: "#",
+      url: "https://example.com",
       image:
         "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=1200&q=80",
       tags: ["System"],
@@ -87,7 +87,7 @@ export const samplePortfolio: Portfolio = {
       id: "3",
       title: "Arcade",
       description: "An editorial site that plays back as you scroll — type, image, and click.",
-      url: "#",
+      url: "https://example.com",
       image:
         "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1200&q=80",
       tags: ["Editorial"],
@@ -96,7 +96,7 @@ export const samplePortfolio: Portfolio = {
       id: "4",
       title: "Drift",
       description: "A small tool for generating kinetic type studies in the browser.",
-      url: "#",
+      url: "https://example.com",
       image:
         "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1200&q=80",
       tags: ["Open source"],
