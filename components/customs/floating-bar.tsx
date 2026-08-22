@@ -2,8 +2,6 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import { playClickSoft } from "@/lib/click-soft";
-
 export default function FloatingBar({
   label,
   onPrev,
@@ -19,10 +17,7 @@ export default function FloatingBar({
         type="button"
         aria-label="Previous template"
         className="inline-flex size-8 items-center justify-center rounded-full hover:bg-white/10 dark:hover:bg-black/10"
-        onClick={() => {
-          playClickSoft();
-          onPrev();
-        }}
+        onClick={onPrev}
       >
         <ChevronLeft className="size-4" />
       </button>
@@ -31,10 +26,7 @@ export default function FloatingBar({
         type="button"
         aria-label="Next template"
         className="inline-flex size-8 items-center justify-center rounded-full hover:bg-white/10 dark:hover:bg-black/10"
-        onClick={() => {
-          playClickSoft();
-          onNext();
-        }}
+        onClick={onNext}
       >
         <ChevronRight className="size-4" />
       </button>

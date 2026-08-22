@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 
 import { designSystem } from "@/components/templates/minimal/design-system";
 import { samplePortfolio } from "@/components/templates/minimal/data";
+import { CopyEmailButton } from "@/components/templates/minimal/copy-email-button";
 import { SoftClickLink } from "@/components/templates/minimal/soft-click-link";
 import { ThemeToggle } from "@/components/templates/minimal/theme-toggle";
 import { cn } from "@/lib/utils";
@@ -211,10 +212,58 @@ export default function MinimalPage({
           </div>
           <DottedRule fullWidth />
           {data.description ? (
-            <p className="px-4 py-4 text-sm text-neutral-500 sm:px-6 sm:py-5 sm:text-base dark:text-neutral-400">
-              {data.description}
-            </p>
+            <div id="about" className="px-4 py-4 sm:px-6 sm:py-5">
+              <h2 className="text-[11px] tracking-wide text-neutral-500 uppercase sm:text-sm dark:text-neutral-400">
+                About
+              </h2>
+              <p className="mt-3 text-sm text-neutral-500 sm:mt-4 sm:text-base dark:text-neutral-400">
+                {data.description}
+              </p>
+            </div>
           ) : null}
+          <DottedRule fullWidth />
+          {(() => {
+            const links = [
+              data.socialLinks.email
+                ? { href: `mailto:${data.socialLinks.email}`, label: data.socialLinks.email }
+                : null,
+              data.socialLinks.github
+                ? { href: data.socialLinks.github, label: "GitHub" }
+                : null,
+              data.socialLinks.linkedin
+                ? { href: data.socialLinks.linkedin, label: "LinkedIn" }
+                : null,
+              data.socialLinks.twitter
+                ? { href: data.socialLinks.twitter, label: "Twitter" }
+                : null,
+              data.socialLinks.website
+                ? { href: data.socialLinks.website, label: "Website" }
+                : null,
+            ].filter((link): link is { href: string; label: string } => link !== null);
+
+            if (links.length === 0) {
+              return null;
+            }
+
+            return (
+              <div className="flex flex-wrap items-center gap-y-2 px-4 py-4 text-xs text-neutral-500 sm:px-6 sm:py-5 sm:text-sm dark:text-neutral-400 [&_a]:underline [&_a]:decoration-neutral-400 [&_a]:underline-offset-4 dark:[&_a]:decoration-neutral-600">
+                {links.map((link, index) => (
+                  <span key={link.href} className="flex items-center">
+                    {index > 0 ? (
+                      <span
+                        aria-hidden
+                        className="mx-3 h-3 w-px bg-[repeating-linear-gradient(to_bottom,#d4d4d4_0_3px,transparent_3px_5px)] sm:mx-4 dark:bg-[repeating-linear-gradient(to_bottom,#525252_0_3px,transparent_3px_5px)]"
+                      />
+                    ) : null}
+                    <SoftClickLink href={link.href}>{link.label}</SoftClickLink>
+                    {link.href.startsWith("mailto:") && data.socialLinks.email ? (
+                      <CopyEmailButton email={data.socialLinks.email} />
+                    ) : null}
+                  </span>
+                ))}
+              </div>
+            );
+          })()}
           <DottedRule fullWidth />
         </motion.section>
 
@@ -274,7 +323,6 @@ export default function MinimalPage({
         <DottedRule />
 
         <motion.section
-          id="about"
           className="px-4 py-10 sm:px-6 sm:py-16"
           variants={dropIn}
         >
@@ -349,25 +397,12 @@ export default function MinimalPage({
         </motion.div>
 
         <motion.footer
-          className="flex flex-wrap gap-3 px-4 py-8 text-xs text-neutral-500 sm:gap-4 sm:px-6 sm:py-16 sm:text-sm dark:text-neutral-400"
+          className="px-4 py-6 text-center sm:px-6 sm:py-8"
           variants={dropIn}
         >
-          {data.socialLinks.email ? (
-            <SoftClickLink href={`mailto:${data.socialLinks.email}`}>
-              {data.socialLinks.email}
-            </SoftClickLink>
-          ) : null}
-          {data.socialLinks.github ? (
-            <SoftClickLink href={data.socialLinks.github}>GitHub</SoftClickLink>
-          ) : null}
-          {data.socialLinks.linkedin ? (
-            <SoftClickLink href={data.socialLinks.linkedin}>LinkedIn</SoftClickLink>
-          ) : null}
-          {data.resumeUrl ? (
-            <SoftClickLink href={data.resumeUrl} target="_blank" rel="noreferrer">
-              Resume
-            </SoftClickLink>
-          ) : null}
+          <p className="text-[11px] tracking-wide text-neutral-400 sm:text-xs dark:text-neutral-500">
+            crafting digital experience with love ❤️
+          </p>
         </motion.footer>
       </motion.div>
     </div>
