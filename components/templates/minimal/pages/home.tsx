@@ -35,6 +35,76 @@ const listStagger = {
   },
 };
 
+const taglineWords = [
+  "code",
+  "crafting",
+  "pixels",
+  "one",
+  "at",
+  "a",
+  "time",
+];
+
+function CraftingTagline() {
+  return (
+    <motion.p
+      className="mt-5 flex items-center justify-center text-xs tracking-wide text-neutral-500 sm:text-sm dark:text-neutral-400"
+      initial="closed"
+      animate="open"
+    >
+      <span
+        aria-hidden
+        className="font-mono text-neutral-400 dark:text-neutral-500"
+      >
+        {"<"}
+      </span>
+      <motion.span
+        className="inline-flex overflow-hidden whitespace-nowrap"
+        variants={{
+          closed: { width: 0, marginLeft: 0, marginRight: 0 },
+          open: {
+            width: "auto",
+            marginLeft: 6,
+            marginRight: 6,
+            transition: {
+              delay: 0.45,
+              width: { duration: 0.7, ease, delay: 0.45 },
+              marginLeft: { duration: 0.7, ease, delay: 0.45 },
+              marginRight: { duration: 0.7, ease, delay: 0.45 },
+              staggerChildren: 0.08,
+              delayChildren: 0.62,
+            },
+          },
+        }}
+      >
+        {taglineWords.map((word) => (
+          <motion.span
+            key={word}
+            className="inline-block px-[0.2em]"
+            variants={{
+              closed: { opacity: 0, y: 10, scale: 0.45 },
+              open: {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: { type: "spring", stiffness: 420, damping: 22 },
+              },
+            }}
+          >
+            {word}
+          </motion.span>
+        ))}
+      </motion.span>
+      <span
+        aria-hidden
+        className="font-mono text-neutral-400 dark:text-neutral-500"
+      >
+        {"/>"}
+      </span>
+    </motion.p>
+  );
+}
+
 function DottedRule({
   fullWidth = false,
   flush = false,
@@ -77,7 +147,7 @@ export default function MinimalPage({
       }}
     >
       <motion.div
-        className="border-line-dash-x mx-5 min-h-screen w-auto max-w-3xl bg-white sm:mx-8 sm:max-w-4xl md:mx-auto dark:bg-neutral-950"
+        className="border-line-dash-x mx-3 min-h-screen w-auto max-w-none bg-white sm:mx-8 sm:max-w-2xl md:mx-auto md:max-w-4xl dark:bg-neutral-950"
         variants={stagger}
         initial="hidden"
         animate="show"
@@ -110,19 +180,8 @@ export default function MinimalPage({
           />
         </motion.header>
 
-        <motion.section
-          className="px-4 py-3 sm:px-6 sm:py-4"
-          variants={dropIn}
-        >
-          <p className="text-center text-xs tracking-wide text-neutral-500 sm:text-sm dark:text-neutral-400">
-            <span aria-hidden className="mr-1.5 font-mono text-neutral-400 dark:text-neutral-500">
-              {"<"}
-            </span>
-            code crafting pixels one at a time
-            <span aria-hidden className="ml-1.5 font-mono text-neutral-400 dark:text-neutral-500">
-              {"/>"}
-            </span>
-          </p>
+        <motion.section className="px-4 py-3 sm:px-6 sm:py-4" variants={dropIn}>
+          <CraftingTagline />
         </motion.section>
 
         <motion.section variants={dropIn} className="mt-5">
