@@ -148,7 +148,7 @@ export default function MinimalPage({
       }}
     >
       <motion.div
-        className="border-line-dash-x mx-3 min-h-screen w-auto max-w-none bg-white sm:mx-8 sm:max-w-2xl md:mx-auto md:max-w-4xl dark:bg-neutral-950"
+        className="border-line-dash-x mx-3 min-h-screen w-auto max-w-none bg-white sm:mx-8 sm:max-w-2xl md:mx-auto md:max-w-3xl dark:bg-neutral-950"
         variants={stagger}
         initial="hidden"
         animate="show"
