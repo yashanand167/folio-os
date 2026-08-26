@@ -21,7 +21,7 @@ export function Header() {
               type="button"
               className="bg-black px-3 py-1.5 text-white dark:bg-white dark:text-black"
             >
-              Get started
+              Get started →
             </button>
           </div>
         </div>
