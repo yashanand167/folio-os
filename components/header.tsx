@@ -14,9 +14,9 @@ export function Header() {
           </Link>
           <div className="flex items-center gap-4 text-sm sm:gap-5">
             <ThemeToggle />
-            <button type="button" className="hidden sm:inline">
-              Sign in
-            </button>
+            <Link href="/templates" className="hidden sm:inline">
+              View templates
+            </Link>
             <button
               type="button"
               className="bg-black px-3 py-1.5 text-white dark:bg-white dark:text-black"

@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { CornerStrokes } from "@/components/corner-strokes";
+
 export default function HeroSection() {
   return (
     <section className="flex flex-col items-center px-6 pt-28 pb-24 text-center sm:pt-32">
@@ -20,8 +22,9 @@ export default function HeroSection() {
         </button>
         <Link
           href="/templates"
-          className="border border-black px-4 py-2.5 text-sm text-black sm:text-base dark:border-white dark:text-white"
+          className="relative bg-neutral-100/50 px-4 py-2.5 text-sm text-black sm:text-base dark:bg-neutral-800/50 dark:text-white"
         >
+          <CornerStrokes className="border-black dark:border-white" />
           View templates
         </Link>
       </div>
