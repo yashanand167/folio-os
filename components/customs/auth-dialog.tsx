@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FaGoogle } from "react-icons/fa";
 
 import {
@@ -37,6 +38,7 @@ export function AuthDialog({
   const [error, setError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const [pending, setPending] = useState(false);
+  const router = useRouter();
 
   const isSignup = view === "signup";
 
@@ -88,11 +90,13 @@ export function AuthDialog({
 
     resetForm();
     setOpen(false);
+    router.push("/dashboard");
+    router.refresh();
   }
 
   async function onGoogle() {
     setError(null);
-    await signIn.social({ provider: "google" });
+    await signIn.social({ provider: "google", callbackURL: "/dashboard" });
   }
 
   return (
