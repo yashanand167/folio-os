@@ -1,30 +1,32 @@
 import Link from "next/link";
 
 import { CornerStrokes } from "@/components/corner-strokes";
-import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-40">
-      <div className="pointer-events-auto mx-auto max-w-5xl px-3 pt-3 sm:px-4 sm:pt-4">
-        <div className="relative flex items-center justify-between gap-2 bg-white/60 px-3 py-2 backdrop-blur-xl sm:gap-3 sm:px-4 sm:py-3.5">
-          <CornerStrokes />
-          <Link
-            href="/"
-            className="text-xs font-semibold tracking-tight sm:text-sm text-black"
-          >
+      <div className="pointer-events-auto mx-auto max-w-6xl px-3 pt-3 sm:px-4 sm:pt-4">
+        <div className="relative flex items-center justify-between bg-neutral-100/80 px-4 py-4 text-black backdrop-blur-xl sm:px-6 sm:py-5 dark:bg-neutral-800/80 dark:text-white">
+          <CornerStrokes className="border-black dark:border-white" />
+          <Link href="/" className="text-sm tracking-tight">
             Folio OS
           </Link>
-          <div className="flex items-center gap-1">
-            <Button variant="ghost" size="sm" className="hidden sm:inline-flex text-black">
+          <div className="flex items-center gap-4 text-sm sm:gap-5">
+            <ThemeToggle />
+            <button type="button" className="hidden sm:inline">
               Sign in
-            </Button>
-            <Button size="sm" className="sm:h-9 sm:px-2.5 sm:text-sm bg-black text-white">
+            </button>
+            <button
+              type="button"
+              className="bg-black px-3 py-1.5 text-white dark:bg-white dark:text-black"
+            >
               Get started
-            </Button>
+            </button>
           </div>
         </div>
       </div>
     </header>
   );
 }
+

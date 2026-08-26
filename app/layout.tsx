@@ -28,8 +28,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className={`${geistSans.className} min-h-full flex flex-col`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}
