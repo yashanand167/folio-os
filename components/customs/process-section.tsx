@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { CornerStrokes } from "@/components/corner-strokes";
+import MinimalPage from "@/components/templates/minimal/pages/home";
 
 type Message =
   | {
@@ -26,6 +27,10 @@ const initialMessages: Message[] = [
   {
     role: "agent",
     text: "Received your profile. I'll draft the portfolio from this.",
+  },
+  {
+    role: "agent",
+    text: "Your portfolio is ready. Anything you wanna change?",
   },
 ];
 
@@ -55,7 +60,7 @@ export default function ProcessSection() {
         <div className="relative flex min-h-0 flex-1 overflow-hidden bg-white dark:bg-black">
           <aside className="flex w-52 shrink-0 flex-col border-r border-black/10 sm:w-64 dark:border-white/10">
             <div className="border-b border-black/10 px-3 py-2.5 text-xs tracking-wide text-neutral-500 dark:border-white/10 dark:text-neutral-400">
-              Agent
+              Folio Agent
             </div>
             <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto px-3 py-3">
               {messages.map((message, index) => {
@@ -121,10 +126,16 @@ export default function ProcessSection() {
               />
             </form>
           </aside>
-          <div className="min-w-0 flex-1 px-5 py-4">
-            <h1 className="text-sm tracking-tight text-black sm:text-base dark:text-white">
-              Just few simple steps
-            </h1>
+          <div className="relative min-h-0 flex-1 overflow-hidden">
+            <div className="pointer-events-none absolute top-0 left-0 w-[180%] origin-top-left scale-[0.55]">
+              <MinimalPage />
+            </div>
+            <button
+              type="button"
+              className="absolute right-4 bottom-4 z-10 bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 px-3 py-1.5 text-sm text-white"
+            >
+              Publish
+            </button>
           </div>
         </div>
       </div>
