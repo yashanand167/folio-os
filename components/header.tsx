@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { AuthDialog } from "@/components/customs/auth-dialog";
 import { CornerStrokes } from "@/components/corner-strokes";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -18,12 +19,9 @@ export function Header() {
             <Link href="/templates" className="hidden sm:inline">
               View templates
             </Link>
-            <button
-              type="button"
-              className="bg-black px-3 py-1.5 text-white dark:bg-white dark:text-black"
-            >
+            <AuthDialog triggerClassName="bg-black px-3 py-1.5 text-white dark:bg-white dark:text-black">
               Get started →
-            </button>
+            </AuthDialog>
           </div>
         </div>
       </div>

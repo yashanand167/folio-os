@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { AuthDialog } from "@/components/customs/auth-dialog";
 import { CornerStrokes } from "@/components/corner-strokes";
 
 export default function HeroSection() {
@@ -14,12 +15,9 @@ export default function HeroSection() {
         Your work deserves more than a PDF.
       </p>
       <div className="mt-8 flex items-center gap-3">
-        <button
-          type="button"
-          className="bg-black px-4 py-2.5 text-sm text-white sm:text-base dark:bg-white dark:text-black"
-        >
+        <AuthDialog triggerClassName="bg-black px-4 py-2.5 text-sm text-white sm:text-base dark:bg-white dark:text-black">
           Get started →
-        </button>
+        </AuthDialog>
         <Link
           href="/templates"
           className="relative bg-neutral-100/50 px-4 py-2.5 text-sm text-black sm:text-base dark:bg-neutral-800/50 dark:text-white"
