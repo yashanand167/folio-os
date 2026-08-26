@@ -133,14 +133,21 @@ function DottedRule({
 
 export default function MinimalPage({
   data = samplePortfolio,
+  embedded = false,
 }: {
   data?: Portfolio;
+  embedded?: boolean;
 }) {
   const { typography } = designSystem;
 
   return (
     <div
-      className="bg-page-wash min-h-screen overflow-x-hidden text-[15px] text-neutral-950 sm:text-base dark:text-neutral-50"
+      className={cn(
+        "overflow-x-hidden text-[15px] text-neutral-950 sm:text-base dark:text-neutral-50",
+        embedded
+          ? "h-full min-h-full w-full bg-white dark:bg-neutral-950"
+          : "bg-page-wash min-h-screen",
+      )}
       style={{
         fontFamily: typography.fontFamily,
         fontWeight: typography.fontWeight,
@@ -148,7 +155,12 @@ export default function MinimalPage({
       }}
     >
       <motion.div
-        className="border-line-dash-x mx-3 min-h-screen w-auto max-w-none bg-white sm:mx-8 sm:max-w-2xl md:mx-auto md:max-w-3xl dark:bg-neutral-950"
+        className={cn(
+          "border-line-dash-x bg-white dark:bg-neutral-950",
+          embedded
+            ? "mx-0 h-full min-h-full w-full max-w-none"
+            : "mx-3 min-h-screen w-auto max-w-none sm:mx-8 sm:max-w-2xl md:mx-auto md:max-w-3xl",
+        )}
         variants={stagger}
         initial="hidden"
         animate="show"
