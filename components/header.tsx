@@ -1,10 +1,11 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 
 import { AuthDialog } from "@/components/customs/auth-dialog";
 import { CornerStrokes } from "@/components/corner-strokes";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-export function Header() {
+export function Header({ end }: { end?: ReactNode }) {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-40">
       <div className="pointer-events-auto mx-auto max-w-6xl px-3 pt-3 sm:px-4 sm:pt-4">
@@ -16,12 +17,16 @@ export function Header() {
           <div className="flex items-center gap-4 text-sm sm:gap-5">
             <ThemeToggle />
             <span className="h-4 w-px bg-black/40 dark:bg-white/40" />
-            <Link href="/templates" className="hidden sm:inline">
-              View templates
-            </Link>
-            <AuthDialog triggerClassName="bg-black px-3 py-1.5 text-white dark:bg-white dark:text-black">
-              Get started →
-            </AuthDialog>
+            {end ?? (
+              <>
+                <Link href="/templates" className="hidden sm:inline">
+                  View templates
+                </Link>
+                <AuthDialog triggerClassName="bg-black px-3 py-1.5 text-white dark:bg-white dark:text-black">
+                  Get started →
+                </AuthDialog>
+              </>
+            )}
           </div>
         </div>
       </div>
