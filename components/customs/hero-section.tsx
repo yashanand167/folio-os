@@ -4,7 +4,7 @@ import { CornerStrokes } from "@/components/corner-strokes";
 
 export default function HeroSection() {
   return (
-    <section className="flex flex-col items-center px-6 pt-28 pb-24 text-center sm:pt-32">
+    <section className="flex flex-col items-center px-6 pt-32 pb-24 text-center sm:pt-40">
       <h1 className="max-w-xl text-3xl leading-tight tracking-tight text-black sm:text-5xl dark:text-white">
         Build your portfolio
         <br />
