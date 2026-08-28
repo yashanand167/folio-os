@@ -12,7 +12,7 @@ export function Header({ end }: { end?: ReactNode }) {
       <div className="pointer-events-auto mx-auto max-w-6xl px-3 pt-3 sm:px-4 sm:pt-4">
         <div className="relative flex items-center justify-between bg-neutral-100/80 px-4 py-3 text-black backdrop-blur-xl sm:px-6 sm:py-3.5 dark:bg-neutral-800/80 dark:text-white">
           <CornerStrokes className="border-black dark:border-white" />
-          <Link href="/" className="flex items-center gap-2 text-sm text-blue-400 tracking-tight">
+          <Link href="/" className="flex items-center gap-2 text-sm font-medium text-blue-400 tracking-tight">
           <Image src="/FolioOS.png" alt="Folio OS" width={40} height={40} />
             Folio OS
           </Link>
