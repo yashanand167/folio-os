@@ -1,17 +1,38 @@
+"use client";
+
+import { useState } from "react";
+import ProgressBar from "@/components/customs/progress-bar";
+import { CornerStrokes } from "@/components/corner-strokes";
 import BasicInfo from "@/components/forms/basic.info";
+import ExperienceEducationInfo from "@/components/forms/experience-education.info";
+import SkillsInfo from "@/components/forms/skills.info";
+import ProjectsInfo from "@/components/forms/projects.info";
 
 export default function FormPage() {
-  return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden p-4">
-      <img
-        src="https://i.pinimg.com/736x/70/9e/6d/709e6df7069fe51844989923cff5a220.jpg"
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+  const [currentStep, setCurrentStep] = useState(1);
+  const [isCompleted, setIsCompleted] = useState(false);
 
-      <div className="relative z-10 w-full max-w-md bg-black p-8">
-        <BasicInfo />
-      </div>
+  const totalSteps = 4;
+
+  const handleNext = () => {
+    if (currentStep < totalSteps) {
+      setCurrentStep((prev) => prev + 1);
+    } else {
+      setIsCompleted(true);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep((prev) => prev - 1);
+    }
+  };
+
+  return (
+    <main>
+      <h1>form</h1>
     </main>
   );
 }
+
+

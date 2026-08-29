@@ -9,12 +9,12 @@ import { cn } from "@/lib/utils";
 
 type Message =
   | {
-      role: "user";
-      kind: "data";
-      name: string;
-      profession: string;
-      details: string[];
-    }
+    role: "user";
+    kind: "data";
+    name: string;
+    profession: string;
+    details: string[];
+  }
   | { role: "user"; kind: "text"; text: string }
   | { role: "agent"; text: string };
 
