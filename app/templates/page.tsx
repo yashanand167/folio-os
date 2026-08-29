@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FloatingBar from "@/components/customs/floating-bar";
 import { templates } from "@/components/templates/registry";
@@ -14,28 +14,30 @@ export default function Templates() {
   const Page = current.Page;
   const frameWidth = previewFrameWidth(view, screenView);
 
+  useEffect(() => {
+    if (!frameWidth) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [frameWidth]);
+
   return (
     <div
       className={cn(
         "relative min-h-screen",
-        frameWidth &&
-          "flex justify-center bg-neutral-200 py-8 dark:bg-neutral-900",
+        frameWidth && "h-dvh overflow-hidden bg-neutral-200 dark:bg-neutral-900",
       )}
     >
       {frameWidth ? (
-        <div
-          className="h-dvh max-w-full overflow-hidden border border-black/15 bg-white dark:border-white/15 dark:bg-black"
-          style={{ width: frameWidth }}
-        >
-          <iframe
-            key={`${current.id}-${view}`}
-            title={`${current.label} ${view} preview`}
-            src={`/templates/preview/${current.id}`}
-            width={frameWidth}
-            height={844}
-            className="h-full w-full border-0"
-          />
-        </div>
+        <iframe
+          key={`${current.id}-${view}`}
+          title={`${current.label} ${view} preview`}
+          src={`/templates/preview/${current.id}`}
+          className="fixed inset-y-0 left-1/2 z-10 -translate-x-1/2 border-x border-black/15 bg-white dark:border-white/15 dark:bg-black"
+          style={{ width: frameWidth, height: "100dvh" }}
+        />
       ) : (
         <Page key={current.id} />
       )}

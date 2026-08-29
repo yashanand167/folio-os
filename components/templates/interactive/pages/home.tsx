@@ -39,8 +39,10 @@ const panel = {
 
 export default function InteractivePage({
   data = samplePortfolio,
+  embedded = false,
 }: {
   data?: Portfolio;
+  embedded?: boolean;
 }) {
   const [active, setActive] = useState<TabId>("introduction");
 
@@ -64,7 +66,7 @@ export default function InteractivePage({
 
   return (
     <div
-      className={`${spaceGrotesk.className} min-h-screen bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50`}
+      className={`${spaceGrotesk.className} bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50 ${embedded ? "min-h-full" : "min-h-screen"}`}
       style={{
         fontSize: designSystem.typography.fontSize,
         lineHeight: designSystem.typography.lineHeight,

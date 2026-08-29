@@ -145,7 +145,7 @@ export default function MinimalPage({
       className={cn(
         "overflow-x-hidden text-[15px] text-neutral-950 sm:text-base dark:text-neutral-50",
         embedded
-          ? "h-full min-h-full w-full bg-white dark:bg-neutral-950"
+          ? "min-h-full w-full bg-white dark:bg-neutral-950"
           : "bg-page-wash min-h-screen",
       )}
       style={{

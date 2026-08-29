@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight, Monitor, Smartphone, Tablet } from "lucide-react";
+import { toast } from "sonner";
 
 import type { ScreenView } from "@/hooks/use-screen-view";
 import { cn } from "@/lib/utils";
@@ -64,7 +65,17 @@ export default function FloatingBar({
                 ? "bg-white text-neutral-950 dark:bg-neutral-950 dark:text-white"
                 : "hover:bg-white/10 dark:hover:bg-black/10",
             )}
-            onClick={() => onViewChange(id)}
+            onClick={() => {
+              if (screenView === "mobile" && id !== "mobile") {
+                toast.error(
+                  id === "web"
+                    ? "Web view isn't available on mobile."
+                    : "Tablet view isn't available on mobile.",
+                );
+                return;
+              }
+              onViewChange(id);
+            }}
           >
             <Icon className="size-4" />
           </button>

@@ -15,5 +15,5 @@ export default async function TemplatePreviewPage({
   }
 
   const Page = template.Page;
-  return <Page />;
+  return <Page embedded />;
 }
