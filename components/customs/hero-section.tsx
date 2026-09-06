@@ -12,7 +12,7 @@ export default function HeroSection() {
       </h1>
 
       <p className="mt-4 text-sm text-neutral-500 sm:text-base dark:text-neutral-400">
-        Your work deserves more than a PDF.
+        Turn your work into a portfolio worth remembering.
       </p>
 
       <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:mt-8 sm:gap-3">

@@ -16,7 +16,7 @@ export default function Home() {
         <Header />
         <HeroSection />
 
-        <div className="relative overflow-hidden rounded-2xl px-3 py-4 sm:p-10">
+        <div className="relative mx-4 mb-6 overflow-hidden rounded-2xl px-3 py-4 sm:mx-10 sm:mb-10 sm:p-10">
           <img
             src={darkMode ? "https://i.pinimg.com/1200x/e0/5f/c6/e05fc661ac3627f4a4232cb455e1d695.jpg" : "https://i.pinimg.com/1200x/be/d1/17/bed117c8a4ffcf8885bde97fc89c863e.jpg"}
             alt="Process"
