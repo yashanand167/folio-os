@@ -27,10 +27,10 @@ function Actions({ end }: { end?: ReactNode }) {
       <span className="h-4 w-px bg-white/40 dark:bg-black/40" />
       {end ?? (
         <>
-          <Link href="/templates" className="hidden sm:inline">
+          <Link href="/templates" className="hidden text-xs sm:inline">
             View templates
           </Link>
-          <AuthDialog triggerClassName="rounded-lg bg-white px-2.5 py-1.5 text-sm text-black dark:bg-black dark:text-white">
+          <AuthDialog triggerClassName="rounded-lg bg-white px-2.5 py-1.5 text-xs text-black dark:bg-black dark:text-white">
             Get started →
           </AuthDialog>
         </>
@@ -65,10 +65,10 @@ export function Header({ end }: { end?: ReactNode }) {
             </div>
             {end ?? (
               <>
-                <Link href="/templates" onClick={() => setOpen(false)}>
+                <Link href="/templates" className="text-xs" onClick={() => setOpen(false)}>
                   View templates
                 </Link>
-                <AuthDialog triggerClassName="rounded-lg bg-white px-2.5 py-1.5 text-center text-sm text-black dark:bg-black dark:text-white">
+                <AuthDialog triggerClassName="rounded-lg bg-white px-2.5 py-1.5 text-center text-xs text-black dark:bg-black dark:text-white">
                   Get started →
                 </AuthDialog>
               </>
