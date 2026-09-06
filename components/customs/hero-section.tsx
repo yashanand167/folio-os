@@ -1,40 +1,31 @@
 import Link from "next/link";
 
 import { AuthDialog } from "@/components/customs/auth-dialog";
-import BlueFlame from "@/components/customs/svgs/blue-flames";
-import { CornerStrokes } from "@/components/corner-strokes";
 
 export default function HeroSection() {
   return (
-    <section className="relative flex flex-col items-center overflow-hidden px-6 pt-32 pb-24 text-center sm:pt-40">
-      <div className="pointer-events-none absolute left-1/2 top-12 z-0 -translate-x-1/2">
-        <BlueFlame />
-      </div>
+    <section className="relative flex flex-col items-center px-4 pt-8 pb-10 text-center sm:px-6 sm:pt-20 sm:pb-24">
+      <h1 className="max-w-xl text-3xl leading-tight tracking-tight text-black sm:text-6xl dark:text-white">
+        Build your portfolio
+        <br />
+        without the setup.
+      </h1>
 
-      <div className="relative z-10 flex flex-col items-center">
-        <h1 className="max-w-xl text-3xl leading-tight tracking-tight text-black sm:text-5xl dark:text-white">
-          Build your portfolio
-          <br />
-          without the setup.
-        </h1>
+      <p className="mt-4 text-sm text-neutral-500 sm:text-base dark:text-neutral-400">
+        Your work deserves more than a PDF.
+      </p>
 
-        <p className="mt-4 text-sm text-neutral-500 sm:text-base dark:text-neutral-400">
-          Your work deserves more than a PDF.
-        </p>
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:mt-8 sm:gap-3">
+        <AuthDialog triggerClassName="rounded-lg bg-black px-4 py-2.5 text-sm text-white sm:text-base dark:bg-white dark:text-black">
+          Get started →
+        </AuthDialog>
 
-        <div className="mt-8 flex items-center gap-3">
-          <AuthDialog triggerClassName="bg-black px-4 py-2.5 text-sm text-white sm:text-base dark:bg-white dark:text-black">
-            Get started →
-          </AuthDialog>
-
-          <Link
-            href="/templates"
-            className="relative bg-neutral-100/50 px-4 py-2.5 text-sm text-black sm:text-base dark:bg-neutral-800/50 dark:text-white"
-          >
-            <CornerStrokes className="border-black dark:border-white" />
-            View templates
-          </Link>
-        </div>
+        <Link
+          href="/templates"
+          className="rounded-lg bg-neutral-100 px-4 py-2.5 text-sm text-black sm:text-base dark:bg-neutral-800 dark:text-white"
+        >
+          View templates
+        </Link>
       </div>
     </section>
   );

@@ -17,6 +17,7 @@
     "@better-auth/drizzle-adapter": "^1.7.1",
     "@lexical/react": "^0.49.0",
     "@neondatabase/serverless": "^1.1.0",
+    "@openrouter/sdk": "^1.2.83",
     "@remotion/player": "4.0.515",
     "better-auth": "^1.7.1",
     "class-variance-authority": "^0.7.1",

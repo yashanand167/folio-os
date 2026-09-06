@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 
-import { CornerStrokes } from "@/components/corner-strokes";
 import MinimalPage from "@/components/templates/minimal/pages/home";
 import { cn } from "@/lib/utils";
 
@@ -57,9 +56,8 @@ export default function ProcessSection() {
   }
 
   return (
-    <section className="px-6 pb-24 sm:px-10">
-      <div className="relative mx-auto flex aspect-[6/5] w-full flex-col bg-neutral-100/50 p-5 dark:bg-neutral-800/50">
-        <CornerStrokes className="border-black dark:border-white" />
+    <section>
+      <div className="relative mx-auto flex min-h-[28rem] w-full flex-col rounded-lg bg-white/70 p-2 sm:aspect-[6/5] sm:min-h-0 sm:p-5 dark:bg-neutral-950/70">
         <div className="relative flex min-h-0 flex-1 overflow-hidden bg-white dark:bg-neutral-950">
           {chatOpen ? (
             <button
@@ -155,14 +153,14 @@ export default function ProcessSection() {
             </form>
           </aside>
           <div className="relative min-h-0 min-w-0 flex-1 overflow-hidden">
-            <div className="pointer-events-none absolute inset-0 overflow-auto">
+            <div className="pointer-events-none absolute inset-0 overflow-auto pb-12 sm:pb-0">
               <MinimalPage embedded />
             </div>
             {chatOpen ? null : (
               <button
                 type="button"
                 aria-label="Open agent"
-                className="absolute bottom-4 left-4 z-10 inline-flex size-10 items-center justify-center bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 text-white lg:hidden"
+                className="absolute bottom-2 left-2 z-10 inline-flex size-9 items-center justify-center rounded-lg bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 text-white sm:bottom-4 sm:left-4 sm:size-10 lg:hidden"
                 onClick={() => setChatOpen(true)}
               >
                 <MessageCircle className="size-4" />
@@ -170,7 +168,7 @@ export default function ProcessSection() {
             )}
             <button
               type="button"
-              className="absolute right-4 bottom-4 z-10 bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 px-3 py-1.5 text-sm text-white"
+              className="absolute right-2 bottom-2 z-10 rounded-lg bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 px-2.5 py-1 text-xs text-white sm:right-4 sm:bottom-4 sm:px-3 sm:py-1.5 sm:text-sm"
             >
               Publish
             </button>

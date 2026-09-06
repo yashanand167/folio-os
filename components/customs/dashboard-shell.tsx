@@ -27,20 +27,20 @@ export function DashboardShell({
       <Header
         end={
           <>
-            <span className="hidden text-neutral-500 sm:inline dark:text-neutral-400">
+            <span className="hidden text-white/60 sm:inline dark:text-black/60">
               {email}
             </span>
             <button
               type="button"
               onClick={onSignOut}
-              className="bg-black px-3 py-1.5 text-white dark:bg-white dark:text-black"
+              className="rounded-lg bg-white px-2.5 py-1.5 text-sm text-black dark:bg-black dark:text-white"
             >
               Sign out
             </button>
           </>
         }
       />
-      <main className="px-6 pt-28 pb-24 sm:px-10 sm:pt-32">
+      <main className="px-6 pt-10 pb-24 sm:px-10">
         <h1 className="text-2xl tracking-tight text-black sm:text-3xl dark:text-white">
           Welcome{name ? `, ${name}` : ""}
         </h1>
