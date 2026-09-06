@@ -5,14 +5,20 @@ import { AuthDialog } from "@/components/customs/auth-dialog";
 export default function HeroSection() {
   return (
     <section className="relative flex flex-col items-center px-4 pt-8 pb-10 text-center sm:px-6 sm:pt-20 sm:pb-24">
-      <h1 className="max-w-xl text-3xl leading-tight tracking-tight text-black sm:text-6xl dark:text-white">
+      <h1 className="max-w-xl text-3xl leading-tight tracking-tight text-black sm:text-6xl dark:text-white font-bold">
         Build your portfolio
         <br />
-        without the setup.
+        <span className="font-serif font-normal italic text-blue-500">
+          without the setup.
+        </span>
       </h1>
 
       <p className="mt-4 text-sm text-neutral-500 sm:text-base dark:text-neutral-400">
-        Turn your work into a portfolio worth remembering.
+        Choose a template, drop in your work,
+        <br />
+        and ship a portfolio that looks
+        <br />
+        like you designed it from scratch.
       </p>
 
       <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:mt-8 sm:gap-3">

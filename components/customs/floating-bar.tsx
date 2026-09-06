@@ -27,7 +27,7 @@ export default function FloatingBar({
   onViewChange: (view: ScreenView) => void;
 }) {
   return (
-    <div className="fixed bottom-6 left-1/2 z-50 flex w-fit -translate-x-1/2 items-center gap-2 rounded-full bg-neutral-950 px-2 py-2 text-white shadow-lg dark:bg-white dark:text-neutral-950">
+    <div className="fixed bottom-6 left-1/2 z-50 flex w-fit -translate-x-1/2 items-center gap-2 rounded-full bg-neutral-950 px-2 py-2 text-white shadow-lg dark:bg-white dark:text-neutral-950 border border-neutral-500 dark:border-neutral-500">
       <button
         type="button"
         aria-label="Previous template"

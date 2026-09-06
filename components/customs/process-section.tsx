@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { MessageCircle, X } from "lucide-react";
 
 import MinimalPage from "@/components/templates/minimal/pages/home";
@@ -58,7 +59,7 @@ export default function ProcessSection() {
   return (
     <section>
       <div className="relative mx-auto flex min-h-[28rem] w-full flex-col rounded-lg bg-white/70 p-2 sm:aspect-[6/5] sm:min-h-0 sm:p-5 dark:bg-neutral-950/70">
-        <div className="relative flex min-h-0 flex-1 overflow-hidden bg-white dark:bg-neutral-950">
+        <div className="relative flex min-h-0 flex-1 overflow-hidden bg-white dark:bg-neutral-950 rounded-lg">
           {chatOpen ? (
             <button
               type="button"
@@ -76,9 +77,12 @@ export default function ProcessSection() {
             )}
           >
             <div className="flex items-center justify-between border-b border-black/10 px-3 py-2.5 dark:border-white/10">
-              <p className="text-xs tracking-wide text-neutral-500 dark:text-neutral-400">
-                Folio Agent
-              </p>
+              <div className="flex items-center gap-1.5">
+                <Image src="/FolioOS.png" alt="" width={16} height={16} />
+                <p className="text-xs tracking-wide text-neutral-500 dark:text-neutral-400">
+                  Folio Agent
+                </p>
+              </div>
               <button
                 type="button"
                 aria-label="Close agent"

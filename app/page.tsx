@@ -19,7 +19,7 @@ export default function Home() {
 
         <div className="relative mx-4 mb-6 overflow-hidden rounded-2xl px-3 py-4 sm:mx-10 sm:mb-10 sm:p-10">
           <img
-            src={darkMode ? "https://i.pinimg.com/1200x/ff/bd/6d/ffbd6d2230adb9cde40b891bff220044.jpg" : "https://i.pinimg.com/1200x/be/d1/17/bed117c8a4ffcf8885bde97fc89c863e.jpg"}
+            src={darkMode ? "https://i.pinimg.com/1200x/b4/8f/34/b48f349afbe54a0fa26d3a3569cc3ce1.jpg" : "https://i.pinimg.com/1200x/be/d1/17/bed117c8a4ffcf8885bde97fc89c863e.jpg"}
             alt="Process"
             className="absolute inset-0 h-full w-full object-cover"
           />
