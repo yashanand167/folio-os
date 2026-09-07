@@ -18,7 +18,7 @@ export default function Home() {
             className="absolute inset-0 h-full w-full object-cover dark:hidden"
           />
           <img
-            src="https://i.pinimg.com/1200x/b4/8f/34/b48f349afbe54a0fa26d3a3569cc3ce1.jpg"
+            src="https://i.pinimg.com/1200x/40/65/fa/4065fa9378842ed2757606f7658d281f.jpg"
             alt=""
             className="absolute inset-0 hidden h-full w-full object-cover dark:block"
           />

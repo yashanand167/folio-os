@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 export default function HeroSection() {
   return (
     <section className="relative flex flex-col items-center px-4 pt-8 pb-6 text-center sm:px-6 sm:pt-18 sm:pb-12">
-      <p className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-gradient-to-b from-neutral-700 to-black px-3.5 py-1.5 text-xs text-white sm:mb-4 dark:border-black/15 dark:from-white dark:to-neutral-200 dark:text-black">
+      <p className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-b from-neutral-800 to-black px-3.5 py-1.5 text-xs text-white ring-1 ring-inset ring-white/15 sm:mb-4">
         <Star className="size-3 fill-yellow-400 text-yellow-400" />
         Star on Github
       </p>

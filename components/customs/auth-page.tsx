@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
 import { FaGoogle } from "react-icons/fa";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { signIn, signUp } from "@/lib/auth-client";
-import { fieldErrors, signInSchema, signUpSchema } from "@/types/auth";
+import {
+  authApiMessage,
+  fieldErrors,
+  signInSchema,
+  signUpSchema,
+  zodMessages,
+} from "@/types/auth";
 
 type AuthView = "login" | "signup";
 
@@ -18,21 +25,40 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [messages, setMessages] = useState<string[]>([]);
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const [pending, setPending] = useState(false);
+  const hideTimer = useRef<number>(0);
 
   const isSignup = view === "signup";
 
+  function showErrors(
+    nextMessages: string[],
+    nextFields: Partial<Record<string, string>> = {},
+  ) {
+    window.clearTimeout(hideTimer.current);
+    setMessages(nextMessages);
+    setErrors(nextFields);
+    hideTimer.current = window.setTimeout(() => {
+      setMessages([]);
+      setErrors({});
+    }, 4000);
+  }
+
+  function clearErrors() {
+    window.clearTimeout(hideTimer.current);
+    setMessages([]);
+    setErrors({});
+  }
+
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
-    setErrors({});
+    clearErrors();
 
     if (isSignup) {
       const parsed = signUpSchema.safeParse({ name, email, password });
       if (!parsed.success) {
-        setErrors(fieldErrors(parsed.error));
+        showErrors(zodMessages(parsed.error), fieldErrors(parsed.error));
         return;
       }
 
@@ -41,13 +67,13 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
       setPending(false);
 
       if (result.error) {
-        setError(result.error.message ?? "Something went wrong.");
+        showErrors([authApiMessage(result.error)]);
         return;
       }
     } else {
       const parsed = signInSchema.safeParse({ email, password });
       if (!parsed.success) {
-        setErrors(fieldErrors(parsed.error));
+        showErrors(zodMessages(parsed.error), fieldErrors(parsed.error));
         return;
       }
 
@@ -56,7 +82,7 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
       setPending(false);
 
       if (result.error) {
-        setError(result.error.message ?? "Something went wrong.");
+        showErrors([authApiMessage(result.error)]);
         return;
       }
     }
@@ -92,7 +118,7 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
           <button
             type="button"
             onClick={() => {
-              setError(null);
+              clearErrors();
               void signIn.social({
                 provider: "google",
                 callbackURL: "/dashboard",
@@ -111,17 +137,36 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
           </div>
 
           <form className="flex flex-col gap-3" onSubmit={onSubmit}>
+            <AnimatePresence>
+              {messages.length > 0 ? (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  className="rounded-lg border border-red-500/40 bg-red-50 px-3 py-2.5 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-950/50 dark:text-red-400"
+                >
+                  <ul className="flex flex-col gap-1">
+                    {messages.map((message) => (
+                      <li key={message}>{message}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+
             {isSignup ? (
               <label className="flex flex-col gap-1.5 text-sm">
                 <span className="text-neutral-500">Name</span>
                 <input
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  className="rounded-lg border border-black/15 bg-transparent px-3 py-2.5 text-black outline-none dark:border-white/20 dark:text-white"
+                  className={`rounded-lg border bg-transparent px-3 py-2.5 text-black outline-none dark:text-white ${
+                    errors.name
+                      ? "border-red-500"
+                      : "border-black/15 dark:border-white/20"
+                  }`}
                 />
-                {errors.name ? (
-                  <span className="text-xs text-red-600">{errors.name}</span>
-                ) : null}
               </label>
             ) : null}
 
@@ -131,11 +176,12 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
                 type="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                className="rounded-lg border border-black/15 bg-transparent px-3 py-2.5 text-black outline-none dark:border-white/20 dark:text-white"
+                className={`rounded-lg border bg-transparent px-3 py-2.5 text-black outline-none dark:text-white ${
+                  errors.email
+                    ? "border-red-500"
+                    : "border-black/15 dark:border-white/20"
+                }`}
               />
-              {errors.email ? (
-                <span className="text-xs text-red-600">{errors.email}</span>
-              ) : null}
             </label>
 
             <label className="flex flex-col gap-1.5 text-sm">
@@ -144,19 +190,19 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                className="rounded-lg border border-black/15 bg-transparent px-3 py-2.5 text-black outline-none dark:border-white/20 dark:text-white"
+                className={`rounded-lg border bg-transparent px-3 py-2.5 text-black outline-none dark:text-white ${
+                  errors.password
+                    ? "border-red-500"
+                    : "border-black/15 dark:border-white/20"
+                }`}
               />
-              {errors.password ? (
-                <span className="text-xs text-red-600">{errors.password}</span>
-              ) : isSignup ? (
+              {isSignup && !errors.password ? (
                 <span className="text-xs text-neutral-400">
                   8–64 characters, with upper, lower, number, and special
                   character.
                 </span>
               ) : null}
             </label>
-
-            {error ? <p className="text-sm text-red-600">{error}</p> : null}
 
             <button
               type="submit"
@@ -178,8 +224,7 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
               className="text-black underline underline-offset-2 dark:text-white"
               onClick={() => {
                 setView(isSignup ? "login" : "signup");
-                setError(null);
-                setErrors({});
+                clearErrors();
               }}
             >
               {isSignup ? "Sign in" : "Create an account"}

@@ -28,7 +28,7 @@ export const signUpSchema = z.object({
 
 export const signInSchema = z.object({
   email: emailSchema,
-  password: passwordSchema,
+  password: z.string().min(1, "Enter your password"),
 });
 
 export type SignUpInput = z.infer<typeof signUpSchema>;
@@ -43,4 +43,37 @@ export function fieldErrors(error: z.ZodError) {
   }
 
   return fields;
+}
+
+export function zodMessages(error: z.ZodError) {
+  return [...new Set(error.issues.map((issue) => issue.message))];
+}
+
+const apiErrorSchema = z.object({
+  code: z.string().optional(),
+  message: z.string().optional(),
+});
+
+export function authApiMessage(error: unknown) {
+  const parsed = apiErrorSchema.safeParse(error);
+  const code = parsed.data?.code ?? "";
+  const message = parsed.data?.message ?? "";
+
+  if (
+    code === "USER_ALREADY_EXISTS" ||
+    /already exists/i.test(message)
+  ) {
+    return "An account with this email already exists.";
+  }
+
+  if (
+    code === "INVALID_EMAIL_OR_PASSWORD" ||
+    code === "INVALID_PASSWORD" ||
+    /invalid email or password/i.test(message) ||
+    /incorrect/i.test(message)
+  ) {
+    return "Incorrect email or password.";
+  }
+
+  return message || "Something went wrong.";
 }
