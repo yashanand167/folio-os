@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="relative flex flex-col items-center px-4 pt-5 pb-6 text-center sm:px-6 sm:pt-10 sm:pb-12">
+    <section className="relative flex flex-col items-center px-4 pt-8 pb-6 text-center sm:px-6 sm:pt-18 sm:pb-12">
       <p className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-gradient-to-b from-neutral-700 to-black px-3.5 py-1.5 text-xs text-white sm:mb-4 dark:border-black/15 dark:from-white dark:to-neutral-200 dark:text-black">
         <Star className="size-3 fill-yellow-400 text-yellow-400" />
         Star on Github
@@ -20,7 +20,6 @@ export default function HeroSection() {
         Choose a template, drop in your work,
         <br />
         and ship a portfolio that looks
-        <br />
         like you designed it from scratch.
       </p>
 

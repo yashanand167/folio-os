@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
 import { FaGoogle } from "react-icons/fa";
 
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -14,8 +13,6 @@ import { fieldErrors, signInSchema, signUpSchema } from "@/types/auth";
 type AuthView = "login" | "signup";
 
 export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView }) {
-  const { resolvedTheme } = useTheme();
-  const darkMode = resolvedTheme === "dark";
   const router = useRouter();
   const [view, setView] = useState<AuthView>(defaultView);
   const [name, setName] = useState("");
@@ -193,13 +190,14 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
 
       <div className="hidden p-4 lg:block lg:w-[58%] lg:p-6">
         <img
-          src={
-            darkMode
-              ? "/Image2.png"
-              : "/Image.png"
-          }
+          src="/image.png"
           alt=""
-          className="h-full w-full rounded-2xl object-cover border border-neutral-200 dark:border-neutral-800"
+          className="h-full w-full rounded-2xl border border-neutral-200 object-cover dark:hidden dark:border-neutral-800"
+        />
+        <img
+          src="/Image2.png"
+          alt=""
+          className="hidden h-full w-full rounded-2xl border border-neutral-200 object-cover dark:block dark:border-neutral-800"
         />
       </div>
     </div>
