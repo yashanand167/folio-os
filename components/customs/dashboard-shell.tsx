@@ -24,7 +24,7 @@ export function DashboardShell({
 
   return (
     <>
-      <Header
+      {/* <Header
         end={
           <>
             <span className="hidden text-white/60 sm:inline dark:text-black/60">
@@ -39,7 +39,7 @@ export function DashboardShell({
             </button>
           </>
         }
-      />
+      /> */}
       <main className="px-6 pt-10 pb-24 sm:px-10">
         <h1 className="text-2xl tracking-tight text-black sm:text-3xl dark:text-white">
           Welcome{name ? `, ${name}` : ""}

@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { motion } from 'motion/react'
 
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -45,7 +46,12 @@ export function Header({ end }: { end?: ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 flex justify-center px-3">
+    <motion.header 
+    className="sticky top-0 z-40 flex justify-center px-3"
+    initial={{ opacity: 0, y: -100 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    >
       <div className="relative flex w-72 items-center justify-between rounded-b-2xl bg-black px-3 py-2 text-sm text-white sm:hidden dark:bg-white dark:text-black">
         <Brand />
         <button
@@ -89,6 +95,6 @@ export function Header({ end }: { end?: ReactNode }) {
           <Actions end={end} />
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }
