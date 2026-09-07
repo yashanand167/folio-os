@@ -31,6 +31,26 @@ export const signInSchema = z.object({
   password: z.string().min(1, "Enter your password"),
 });
 
+export const otpSchema = z
+  .string()
+  .trim()
+  .regex(/^\d{6}$/, "Enter the 6-digit code");
+
+export const verifyEmailSchema = z.object({
+  email: emailSchema,
+  otp: otpSchema,
+});
+
+export const forgotPasswordSchema = z.object({
+  email: emailSchema,
+});
+
+export const resetPasswordSchema = z.object({
+  email: emailSchema,
+  otp: otpSchema,
+  password: passwordSchema,
+});
+
 export type SignUpInput = z.infer<typeof signUpSchema>;
 export type SignInInput = z.infer<typeof signInSchema>;
 
@@ -64,6 +84,18 @@ export function authApiMessage(error: unknown) {
     /already exists/i.test(message)
   ) {
     return "An account with this email already exists.";
+  }
+
+  if (code === "EMAIL_NOT_VERIFIED" || /not verified/i.test(message)) {
+    return "Verify your email with the code we sent.";
+  }
+
+  if (code === "TOO_MANY_ATTEMPTS" || /too many attempts/i.test(message)) {
+    return "Too many attempts. Request a new code.";
+  }
+
+  if (code === "INVALID_OTP" || /invalid otp/i.test(message)) {
+    return "That code is invalid or expired.";
   }
 
   if (
