@@ -20,6 +20,9 @@ export const auth = betterAuth({
     minPasswordLength: PASSWORD_MIN,
     maxPasswordLength: PASSWORD_MAX,
   },
+  accountLinking: {
+    enabled: true,
+  },
   ...(googleClientId && googleClientSecret
     ? {
         socialProviders: {

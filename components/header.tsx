@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
-import { AuthDialog } from "@/components/customs/auth-dialog";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 function Brand() {
@@ -30,9 +29,12 @@ function Actions({ end }: { end?: ReactNode }) {
           <Link href="/templates" className="hidden text-xs sm:inline">
             View templates
           </Link>
-          <AuthDialog triggerClassName="rounded-lg bg-white px-2.5 py-1.5 text-xs text-black dark:bg-black dark:text-white">
+          <Link
+            href="/auth"
+            className="rounded-lg bg-white px-2.5 py-1.5 text-xs text-black dark:bg-black dark:text-white"
+          >
             Get started →
-          </AuthDialog>
+          </Link>
         </>
       )}
     </>
@@ -68,9 +70,13 @@ export function Header({ end }: { end?: ReactNode }) {
                 <Link href="/templates" className="text-xs" onClick={() => setOpen(false)}>
                   View templates
                 </Link>
-                <AuthDialog triggerClassName="rounded-lg bg-white px-2.5 py-1.5 text-center text-xs text-black dark:bg-black dark:text-white">
+                <Link
+                  href="/auth"
+                  className="rounded-lg bg-white px-2.5 py-1.5 text-center text-xs text-black dark:bg-black dark:text-white"
+                  onClick={() => setOpen(false)}
+                >
                   Get started →
-                </AuthDialog>
+                </Link>
               </>
             )}
           </div>

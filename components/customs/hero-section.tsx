@@ -1,11 +1,14 @@
 import Link from "next/link";
-
-import { AuthDialog } from "@/components/customs/auth-dialog";
+import { Star } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="relative flex flex-col items-center px-4 pt-8 pb-10 text-center sm:px-6 sm:pt-20 sm:pb-24">
-      <h1 className="max-w-xl text-3xl leading-tight tracking-tight text-black sm:text-6xl dark:text-white font-bold">
+    <section className="relative flex flex-col items-center px-4 pt-5 pb-6 text-center sm:px-6 sm:pt-10 sm:pb-12">
+      <p className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-gradient-to-b from-neutral-700 to-black px-3.5 py-1.5 text-xs text-white sm:mb-4 dark:border-black/15 dark:from-white dark:to-neutral-200 dark:text-black">
+        <Star className="size-3 fill-yellow-400 text-yellow-400" />
+        Star on Github
+      </p>
+      <h1 className="max-w-xl text-3xl leading-tight tracking-tight text-black sm:text-6xl dark:text-white font-semibold">
         Build your portfolio
         <br />
         <span className="font-serif font-normal italic text-blue-500">
@@ -13,7 +16,7 @@ export default function HeroSection() {
         </span>
       </h1>
 
-      <p className="mt-4 text-sm text-neutral-500 sm:text-base dark:text-neutral-400">
+      <p className="mt-3 text-sm text-neutral-500 sm:text-base dark:text-neutral-400">
         Choose a template, drop in your work,
         <br />
         and ship a portfolio that looks
@@ -21,10 +24,13 @@ export default function HeroSection() {
         like you designed it from scratch.
       </p>
 
-      <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:mt-8 sm:gap-3">
-        <AuthDialog triggerClassName="rounded-lg bg-black px-4 py-2.5 text-sm text-white sm:text-base dark:bg-white dark:text-black">
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5 sm:mt-5 sm:gap-3">
+        <Link
+          href="/auth"
+          className="rounded-lg bg-black px-4 py-2.5 text-sm text-white sm:text-base dark:bg-white dark:text-black"
+        >
           Get started →
-        </AuthDialog>
+        </Link>
 
         <Link
           href="/templates"

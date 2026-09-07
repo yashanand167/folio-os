@@ -2,7 +2,6 @@
 
 import { useTheme } from "next-themes";
 
-import FaqSection from "@/components/customs/faq-section";
 import HeroSection from "@/components/customs/hero-section";
 import { Header } from "@/components/header";
 import ProcessSection from "@/components/customs/process-section";

@@ -10,7 +10,7 @@ export default async function DashboardPage() {
   });
 
   if (!session) {
-    redirect("/");
+    redirect("/auth");
   }
 
   return (
