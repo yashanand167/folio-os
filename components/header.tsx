@@ -11,7 +11,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 function Brand() {
   return (
     <Link
-      href="/"
+      href="/home"
       className="flex items-center gap-2 font-medium tracking-tight text-blue-400"
     >
       <Image src="/FolioOS.png" alt="Folio OS" width={32} height={32} />

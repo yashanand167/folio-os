@@ -238,7 +238,7 @@ export function AuthPage({ defaultView = "signup" }: { defaultView?: AuthView })
       <div className="relative flex w-full flex-col overflow-y-auto px-6 py-8 sm:px-10 lg:w-[42%] lg:px-14">
         <div className="flex items-center justify-between">
           <Link
-            href="/"
+            href="/home"
             className="flex items-center gap-2 font-medium tracking-tight text-blue-400"
           >
             <Image src="/FolioOS.png" alt="Folio OS" width={32} height={32} />
