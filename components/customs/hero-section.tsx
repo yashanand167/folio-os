@@ -10,7 +10,10 @@ export default function HeroSection() {
 
   return (
     <section className="relative flex flex-col items-center px-4 pt-8 pb-6 text-center sm:px-6 sm:pt-18 sm:pb-12">
-      <motion.p
+      <motion.a
+        href="https://github.com/yashanand167/folio-os"
+        target="_blank"
+        rel="noopener noreferrer"
         className="mb-3 inline-flex items-center overflow-hidden rounded-full bg-gradient-to-b from-neutral-800 to-black px-2.5 py-1.5 text-xs text-white ring-1 ring-inset ring-white/15 sm:mb-4"
         onViewportEnter={() => {
           window.setTimeout(() => setLabel(true), 250);
@@ -31,7 +34,7 @@ export default function HeroSection() {
             </motion.span>
           ) : null}
         </AnimatePresence>
-      </motion.p>
+      </motion.a>
 
       <motion.div
         className="flex flex-col items-center"
