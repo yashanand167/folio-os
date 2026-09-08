@@ -1,3 +1,3 @@
 # Folio OS
 
-![Folio OS](./public/demo.png)
+![Folio OS](./public/demos.png)
