@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FileText, FolderOpen, LogOut } from "lucide-react";
 
@@ -42,10 +41,9 @@ export function DashboardShell({
       <header className="flex items-center justify-between">
         <Link
           href="/home"
-          className="flex items-center gap-2 font-medium tracking-tight text-blue-400"
+          className="text-lg font-medium tracking-tight text-black dark:text-white"
         >
-          <Image src="/FolioOS.png" alt="Folio OS" width={32} height={32} />
-          Folio OS
+          Folio.OS
         </Link>
         <div className="flex items-center gap-3">
           <ThemeToggle />
@@ -65,7 +63,7 @@ export function DashboardShell({
               {initials(name)}
             </span>
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-black dark:text-white">
+              <p className="truncate text-md font-medium text-black dark:text-white">
                 {name || "Account"}
               </p>
               <p className="truncate text-xs text-neutral-500 dark:text-neutral-400">
