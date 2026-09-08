@@ -110,7 +110,7 @@ export default function FaqSection() {
         </p>
         <Link
           href="/auth"
-          className="rounded-lg bg-black px-4 py-2.5 text-sm text-white sm:text-base dark:bg-white dark:text-black"
+          className="rounded-lg bg-gradient-to-b from-sky-400 via-blue-500 to-blue-600 px-4 py-2.5 text-sm text-white shadow-[inset_0_1px_0_0_#bae6fd] sm:text-base"
         >
           Get started →
         </Link>

@@ -58,7 +58,7 @@ function Actions({ end }: { end?: ReactNode }) {
           </Link>
           <Link
             href="/auth"
-            className="rounded-lg bg-white px-2.5 py-1.5 text-xs text-black dark:bg-black dark:text-white"
+            className="rounded-lg bg-gradient-to-b from-sky-400 via-blue-500 to-blue-600 px-2.5 py-1.5 text-xs text-white shadow-[inset_0_1px_0_0_#bae6fd]"
           >
             Get started →
           </Link>
@@ -109,7 +109,7 @@ export function Header({ end }: { end?: ReactNode }) {
                   </Link>
                   <Link
                     href="/auth"
-                    className="rounded-lg bg-white px-2.5 py-1.5 text-center text-xs text-black dark:bg-black dark:text-white"
+                    className="rounded-lg bg-gradient-to-b from-sky-400 via-blue-500 to-blue-600 px-2.5 py-1.5 text-center text-xs text-white shadow-[inset_0_1px_0_0_#bae6fd]"
                     onClick={() => setOpen(false)}
                   >
                     Get started →
