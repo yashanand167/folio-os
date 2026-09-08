@@ -1,22 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Space_Grotesk } from "next/font/google";
 import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { AnimatePresence, motion } from "motion/react";
 
-import { designSystem } from "@/components/templates/interactive/design-system";
 import { samplePortfolio } from "@/components/templates/interactive/data";
 import { CopyEmailButton } from "@/components/templates/minimal/copy-email-button";
 import { SoftClickLink } from "@/components/templates/minimal/soft-click-link";
 import { ThemeToggle } from "@/components/templates/minimal/theme-toggle";
 import { playClickSoft } from "@/lib/click-soft";
 import type { Portfolio } from "@/types/portfolio";
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-});
 
 const tabs = [
   { id: "introduction", label: "Introduction" },
@@ -66,11 +60,7 @@ export default function InteractivePage({
 
   return (
     <div
-      className={`${spaceGrotesk.className} bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50 ${embedded ? "min-h-full" : "min-h-screen"}`}
-      style={{
-        fontSize: designSystem.typography.fontSize,
-        lineHeight: designSystem.typography.lineHeight,
-      }}
+      className={`bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50 ${embedded ? "min-h-full" : "min-h-screen"}`}
     >
       <div className="flex min-h-screen w-full flex-col md:flex-row">
         <aside className="flex shrink-0 flex-col justify-between border-zinc-200 px-5 py-6 md:sticky md:top-0 md:h-screen md:w-56 md:border-r md:px-6 md:py-10 dark:border-zinc-800">
@@ -131,8 +121,8 @@ export default function InteractivePage({
             ) : null}
           </header>
 
-          <main className="min-w-0 flex-1 px-5 py-8 pb-28 md:px-10 md:py-12">
-
+          <main className="flex min-w-0 flex-1 justify-center px-5 py-10 pb-28 md:px-16 md:py-20">
+            <div className="w-full max-w-3xl">
           <AnimatePresence mode="wait">
             {active === "introduction" ? (
               <motion.section
@@ -141,33 +131,33 @@ export default function InteractivePage({
                 animate="show"
                 exit="exit"
               >
-                <p className="text-xs font-medium tracking-wide text-zinc-500 uppercase">
+                <p className="text-sm font-medium tracking-wide text-zinc-500 uppercase">
                   Introduction
                 </p>
-                <div className="mt-6 flex items-center gap-5">
+                <div className="mt-8 flex items-center gap-6">
                   {data.profileImage ? (
                     <img
                       src={data.profileImage}
                       alt={data.name}
-                      className="aspect-square w-20 rounded-2xl object-cover sm:w-24"
+                      className="aspect-square w-28 rounded-2xl object-cover sm:w-36"
                     />
                   ) : null}
                   <div className="min-w-0">
-                    <h1 className="text-2xl font-medium tracking-tight sm:text-3xl">
+                    <h1 className="text-4xl font-medium tracking-tight sm:text-6xl">
                       {data.name}
                     </h1>
-                    <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+                    <p className="mt-2 text-lg text-zinc-600 sm:text-xl dark:text-zinc-300">
                       {data.profession}
                     </p>
                   </div>
                 </div>
                 {data.description ? (
-                  <p className="mt-6 max-w-xl text-sm text-zinc-600 sm:text-base dark:text-zinc-400">
+                  <p className="mt-8 text-lg text-zinc-600 sm:text-xl dark:text-zinc-400">
                     {data.description}
                   </p>
                 ) : null}
                 {socialItems.length > 0 ? (
-                  <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-zinc-500 dark:text-zinc-400">
+                  <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-base text-zinc-500 dark:text-zinc-400">
                     {socialItems.map((link, index) => (
                       <span key={link.href} className="flex items-center">
                         {index > 0 ? (
@@ -201,27 +191,27 @@ export default function InteractivePage({
                 animate="show"
                 exit="exit"
               >
-                <p className="text-xs font-medium tracking-wide text-zinc-500 uppercase">
+                <p className="text-sm font-medium tracking-wide text-zinc-500 uppercase">
                   Experience
                 </p>
-                <ul className="mt-6 flex flex-col gap-5">
+                <ul className="mt-8 flex flex-col gap-6">
                   {data.experiences.map((experience) => (
                     <li key={experience.id}>
                       <div className="flex flex-wrap justify-between gap-x-3 gap-y-1">
-                        <p className="font-medium">
+                        <p className="text-xl font-medium">
                           {experience.role}
                         </p>
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                        <p className="text-base text-zinc-500 dark:text-zinc-400">
                           {experience.startDate}
                           {experience.endDate ? ` – ${experience.endDate}` : ""}
                         </p>
                       </div>
-                      <p className="mt-0.5 text-sm text-zinc-600 dark:text-zinc-300">
+                      <p className="mt-1 text-lg text-zinc-600 dark:text-zinc-300">
                         {experience.company}
                         {experience.location ? ` · ${experience.location}` : ""}
                       </p>
                       {experience.description ? (
-                        <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                        <p className="mt-2 text-base text-zinc-500 dark:text-zinc-400">
                           {experience.description}
                         </p>
                       ) : null}
@@ -229,15 +219,15 @@ export default function InteractivePage({
                   ))}
                 </ul>
                 {data.education.length > 0 ? (
-                  <div className="mt-10">
-                    <p className="text-xs font-medium tracking-wide text-zinc-500 uppercase">
+                  <div className="mt-12">
+                    <p className="text-sm font-medium tracking-wide text-zinc-500 uppercase">
                       Education
                     </p>
-                    <ul className="mt-4 flex flex-col gap-3">
+                    <ul className="mt-5 flex flex-col gap-4">
                       {data.education.map((item) => (
                         <li
                           key={item.id}
-                          className="flex flex-wrap justify-between gap-x-3 gap-y-1 text-sm"
+                          className="flex flex-wrap justify-between gap-x-3 gap-y-1 text-base"
                         >
                           <span>
                             {item.degree}
@@ -261,10 +251,10 @@ export default function InteractivePage({
                 animate="show"
                 exit="exit"
               >
-                <p className="text-xs font-medium tracking-wide text-zinc-500 uppercase">
+                <p className="text-sm font-medium tracking-wide text-zinc-500 uppercase">
                   Selected works
                 </p>
-                <ul className="mt-6 flex flex-col gap-3">
+                <ul className="mt-8 flex flex-col gap-4">
                   {data.projects.map((project) => {
                     const href = project.url?.trim();
 
@@ -272,26 +262,26 @@ export default function InteractivePage({
                       <li key={project.id}>
                         <SoftClickLink
                           href={href ?? "#"}
-                          className="block rounded-2xl border border-zinc-200 bg-white p-4 transition-transform hover:-translate-y-0.5 dark:border-zinc-800 dark:bg-zinc-900"
+                          className="block rounded-2xl border border-zinc-200 bg-white p-6 transition-transform hover:-translate-y-0.5 dark:border-zinc-800 dark:bg-zinc-900"
                         >
                           <div className="flex items-start justify-between gap-3">
                             <div>
                               <div className="flex items-center gap-1.5">
-                                <h3 className="font-medium tracking-tight">
+                                <h3 className="text-xl font-medium tracking-tight">
                                   {project.title}
                                 </h3>
                                 {href ? (
-                                  <ArrowUpRight className="size-3.5 shrink-0" />
+                                  <ArrowUpRight className="size-4 shrink-0" />
                                 ) : null}
                               </div>
                               {project.description ? (
-                                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                                <p className="mt-2 text-base text-zinc-500 dark:text-zinc-400">
                                   {project.description}
                                 </p>
                               ) : null}
                             </div>
                             {project.tags?.[0] ? (
-                              <span className="shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-[11px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+                              <span className="shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
                                 {project.tags[0]}
                               </span>
                             ) : null}
@@ -311,14 +301,14 @@ export default function InteractivePage({
                 animate="show"
                 exit="exit"
               >
-                <p className="text-xs font-medium tracking-wide text-zinc-500 uppercase">
+                <p className="text-sm font-medium tracking-wide text-zinc-500 uppercase">
                   Toolkit
                 </p>
-                <div className="mt-6 flex flex-wrap gap-2">
+                <div className="mt-8 flex flex-wrap gap-2.5">
                   {data.skills.map((skill) => (
                     <span
                       key={skill.id}
-                      className="rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm dark:border-zinc-800 dark:bg-zinc-900"
+                      className="rounded-full border border-zinc-200 bg-white px-4 py-2 text-base dark:border-zinc-800 dark:bg-zinc-900"
                     >
                       {skill.name}
                     </span>
@@ -327,6 +317,7 @@ export default function InteractivePage({
               </motion.section>
             ) : null}
           </AnimatePresence>
+            </div>
           </main>
         </div>
       </div>

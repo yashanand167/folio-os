@@ -6,7 +6,7 @@ export const designSystem = {
     muted: "#71717a",
   },
   typography: {
-    fontFamily: "Space Grotesk",
+    fontFamily: "inherit",
     fontSize: 16,
     fontWeight: 400,
     lineHeight: 1.5,
