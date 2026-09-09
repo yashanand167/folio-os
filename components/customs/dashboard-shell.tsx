@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FileText, FolderOpen, LogOut, Plus } from "lucide-react";
+import { FileText, FolderOpen, LogOut } from "lucide-react";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { signOut, useSession } from "@/lib/auth-client";
@@ -23,6 +23,16 @@ function Skeleton({ className }: { className: string }) {
     <div
       className={`animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800 ${className}`}
     />
+  );
+}
+
+function EmptyPortfoliosMark() {
+  return (
+    <div className="flex flex-col items-center gap-2" aria-hidden>
+      <div className="h-24 w-40 rounded-xl border border-dashed border-neutral-300 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/40" />
+      <div className="h-2 w-24 rounded-full bg-neutral-200 dark:bg-neutral-700" />
+      <div className="h-2 w-16 rounded-full bg-neutral-200 dark:bg-neutral-800" />
+    </div>
   );
 }
 
@@ -126,10 +136,10 @@ export function DashboardShell() {
             <div className="mt-auto border-t border-neutral-200 pt-4 dark:border-neutral-800">
               <button
                 type="button"
-                aria-label="Sign out"
                 onClick={() => void onSignOut()}
-                className="inline-flex size-9 items-center justify-center rounded-lg text-neutral-500 hover:bg-neutral-200 hover:text-black dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm text-neutral-600 hover:bg-neutral-200/70 hover:text-black dark:text-neutral-400 dark:hover:bg-neutral-800/70 dark:hover:text-white"
               >
+                Sign out
                 <LogOut className="size-4" />
               </button>
             </div>
@@ -154,7 +164,7 @@ export function DashboardShell() {
                 </div>
               ) : (
                 <div className="mt-16 flex flex-col items-center justify-center text-center">
-                  <Plus className="size-10 text-neutral-400 dark:text-neutral-500" />
+                  <EmptyPortfoliosMark />
                   <Link
                     href="/templates"
                     className="mt-5 rounded-lg bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black"
