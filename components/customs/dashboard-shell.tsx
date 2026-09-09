@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FileText, FolderOpen, LogOut } from "lucide-react";
 
 import { CornerStrokes } from "@/components/corner-strokes";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { signOut } from "@/lib/auth-client";
+import { signOut, useSession } from "@/lib/auth-client";
 import { usePortfolioStore } from "@/stores/portfolio.store";
 
 type Panel = "portfolios" | "draft";
@@ -19,16 +19,28 @@ function initials(name: string) {
   return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
 }
 
-export function DashboardShell({
-  name,
-  email,
-}: {
-  name: string;
-  email: string;
-}) {
+function Skeleton({ className }: { className: string }) {
+  return (
+    <div
+      className={`animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800 ${className}`}
+    />
+  );
+}
+
+export function DashboardShell() {
   const router = useRouter();
+  const { data, isPending } = useSession();
   const [panel, setPanel] = useState<Panel>("portfolios");
   const hasDraft = usePortfolioStore((state) => state.hasDraft());
+
+  const user = data?.user;
+  const loading = isPending || !user;
+
+  useEffect(() => {
+    if (!isPending && !user) {
+      router.replace("/auth");
+    }
+  }, [isPending, user, router]);
 
   async function onSignOut() {
     await signOut();
@@ -59,17 +71,29 @@ export function DashboardShell({
       <div className="mt-6 flex min-h-0 flex-1 flex-col gap-6 md:flex-row">
         <aside className="flex w-full shrink-0 flex-col md:w-56">
           <div className="flex items-center gap-3">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-black text-xs font-medium text-white dark:bg-white dark:text-black">
-              {initials(name)}
-            </span>
-            <div className="min-w-0">
-              <p className="truncate text-md font-medium text-black dark:text-white">
-                {name || "Account"}
-              </p>
-              <p className="truncate text-xs text-neutral-500 dark:text-neutral-400">
-                {email}
-              </p>
-            </div>
+            {loading ? (
+              <>
+                <Skeleton className="size-10 rounded-lg" />
+                <div className="min-w-0 flex-1 space-y-2">
+                  <Skeleton className="h-4 w-28" />
+                  <Skeleton className="h-3 w-36" />
+                </div>
+              </>
+            ) : (
+              <>
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-black text-xs font-medium text-white dark:bg-white dark:text-black">
+                  {initials(user.name)}
+                </span>
+                <div className="min-w-0">
+                  <p className="truncate text-md font-medium text-black dark:text-white">
+                    {user.name || "Account"}
+                  </p>
+                  <p className="truncate text-xs text-neutral-500 dark:text-neutral-400">
+                    {user.email}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
 
           <nav className="mt-8 flex flex-1 flex-col">
@@ -122,18 +146,27 @@ export function DashboardShell({
               <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
                 Your published work lives here.
               </p>
-              <div className="relative mt-10 flex min-h-64 flex-col items-center justify-center px-6 py-16 text-center">
-                <CornerStrokes className="border-black dark:border-white" />
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                  No portfolios yet.
-                </p>
-                <Link
-                  href="/templates"
-                  className="mt-4 bg-black px-3 py-1.5 text-sm text-white dark:bg-white dark:text-black"
-                >
-                  View templates
-                </Link>
-              </div>
+              {loading ? (
+                <div className="mt-10 grid gap-3 sm:grid-cols-2">
+                  <Skeleton className="h-36 rounded-2xl" />
+                  <Skeleton className="h-36 rounded-2xl" />
+                  <Skeleton className="h-36 rounded-2xl" />
+                  <Skeleton className="h-36 rounded-2xl" />
+                </div>
+              ) : (
+                <div className="relative mt-10 flex min-h-64 flex-col items-center justify-center px-6 py-16 text-center">
+                  <CornerStrokes className="border-black dark:border-white" />
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                    No portfolios yet.
+                  </p>
+                  <Link
+                    href="/templates"
+                    className="mt-4 bg-black px-3 py-1.5 text-sm text-white dark:bg-white dark:text-black"
+                  >
+                    View templates
+                  </Link>
+                </div>
+              )}
             </>
           ) : (
             <>
@@ -143,34 +176,41 @@ export function DashboardShell({
               <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
                 Pick up where you left off.
               </p>
-              <div className="relative mt-10 flex min-h-64 flex-col items-center justify-center px-6 py-16 text-center">
-                <CornerStrokes className="border-black dark:border-white" />
-                {hasDraft ? (
-                  <>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                      You have a draft in progress.
-                    </p>
-                    <Link
-                      href="/form"
-                      className="mt-4 bg-black px-3 py-1.5 text-sm text-white dark:bg-white dark:text-black"
-                    >
-                      Continue draft
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                      No draft yet.
-                    </p>
-                    <Link
-                      href="/templates"
-                      className="mt-4 bg-black px-3 py-1.5 text-sm text-white dark:bg-white dark:text-black"
-                    >
-                      View templates
-                    </Link>
-                  </>
-                )}
-              </div>
+              {loading ? (
+                <div className="mt-10 space-y-3">
+                  <Skeleton className="h-20 rounded-2xl" />
+                  <Skeleton className="h-20 rounded-2xl" />
+                </div>
+              ) : (
+                <div className="relative mt-10 flex min-h-64 flex-col items-center justify-center px-6 py-16 text-center">
+                  <CornerStrokes className="border-black dark:border-white" />
+                  {hasDraft ? (
+                    <>
+                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                        You have a draft in progress.
+                      </p>
+                      <Link
+                        href="/form"
+                        className="mt-4 bg-black px-3 py-1.5 text-sm text-white dark:bg-white dark:text-black"
+                      >
+                        Continue draft
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                        No draft yet.
+                      </p>
+                      <Link
+                        href="/templates"
+                        className="mt-4 bg-black px-3 py-1.5 text-sm text-white dark:bg-white dark:text-black"
+                      >
+                        View templates
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
             </>
           )}
         </section>
