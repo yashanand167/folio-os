@@ -10,7 +10,7 @@ export default function DashboardLayout({
 }: LayoutProps<"/dashboard">) {
   return (
     <div className="fixed inset-0 overflow-hidden bg-neutral-100 dark:bg-neutral-950">
-      <div className="relative mx-auto h-full w-full overflow-y-auto overscroll-none [scrollbar-width:none] sm:max-w-6xl [&::-webkit-scrollbar]:hidden">
+      <div className="relative mx-auto h-full w-full overflow-y-auto overscroll-none [scrollbar-width:none] max-w-[90rem] [&::-webkit-scrollbar]:hidden">
         {children}
       </div>
     </div>

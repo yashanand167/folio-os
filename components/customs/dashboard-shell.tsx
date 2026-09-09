@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FileText, FolderOpen, LogOut } from "lucide-react";
+import { FileText, FolderOpen, LogOut, Plus } from "lucide-react";
 
-import { CornerStrokes } from "@/components/corner-strokes";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { signOut, useSession } from "@/lib/auth-client";
 import { usePortfolioStore } from "@/stores/portfolio.store";
@@ -154,16 +153,13 @@ export function DashboardShell() {
                   <Skeleton className="h-36 rounded-2xl" />
                 </div>
               ) : (
-                <div className="relative mt-10 flex min-h-64 flex-col items-center justify-center px-6 py-16 text-center">
-                  <CornerStrokes className="border-black dark:border-white" />
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                    No portfolios yet.
-                  </p>
+                <div className="mt-16 flex flex-col items-center justify-center text-center">
+                  <Plus className="size-10 text-neutral-400 dark:text-neutral-500" />
                   <Link
                     href="/templates"
-                    className="mt-4 bg-black px-3 py-1.5 text-sm text-white dark:bg-white dark:text-black"
+                    className="mt-5 rounded-lg bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black"
                   >
-                    View templates
+                    Start creating
                   </Link>
                 </div>
               )}
@@ -182,30 +178,25 @@ export function DashboardShell() {
                   <Skeleton className="h-20 rounded-2xl" />
                 </div>
               ) : (
-                <div className="relative mt-10 flex min-h-64 flex-col items-center justify-center px-6 py-16 text-center">
-                  <CornerStrokes className="border-black dark:border-white" />
+                <div className="mt-16 flex flex-col items-center justify-center text-center">
                   {hasDraft ? (
                     <>
-                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                        You have a draft in progress.
-                      </p>
+                      <FileText className="size-10 text-neutral-400 dark:text-neutral-500" />
                       <Link
                         href="/form"
-                        className="mt-4 bg-black px-3 py-1.5 text-sm text-white dark:bg-white dark:text-black"
+                        className="mt-5 rounded-lg bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black"
                       >
                         Continue draft
                       </Link>
                     </>
                   ) : (
                     <>
-                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                        No draft yet.
-                      </p>
+                      <FileText className="size-10 text-neutral-400 dark:text-neutral-500" />
                       <Link
                         href="/templates"
-                        className="mt-4 bg-black px-3 py-1.5 text-sm text-white dark:bg-white dark:text-black"
+                        className="mt-5 rounded-lg bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black"
                       >
-                        View templates
+                        Start creating
                       </Link>
                     </>
                   )}
