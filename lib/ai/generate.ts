@@ -6,26 +6,38 @@ import {
   type AgentProfileInput,
 } from "./prompts/portfolio";
 
-export async function draftPortfolio(profile: AgentProfileInput) {
-  const response = await openrouter.chat.completions.create({
-    model: "google/gemini-2.5-flash",
-    messages: [
-      { role: "system", content: folioAgentSystemPrompt },
-      { role: "user", content: folioDraftPrompt(profile) },
-    ],
-    response_format: { type: "json_object" },
+const MODEL = "google/gemini-2.5-flash";
+
+async function completeJsonChat(
+  messages: Array<{ role: "system" | "user"; content: string }>,
+) {
+  const response = await openrouter.chat.send({
+    chatRequest: {
+      model: MODEL,
+      messages,
+      responseFormat: { type: "json_object" },
+      stream: false,
+    },
   });
-  return response.choices[0].message.content;
+
+  if (!("choices" in response)) {
+    throw new Error("Expected a non-streaming chat completion");
+  }
+
+  const content = response.choices[0]?.message.content;
+  return typeof content === "string" ? content : null;
+}
+
+export async function draftPortfolio(profile: AgentProfileInput) {
+  return completeJsonChat([
+    { role: "system", content: folioAgentSystemPrompt },
+    { role: "user", content: folioDraftPrompt(profile) },
+  ]);
 }
 
 export async function revisePortfolio(portfolio: string, request: string) {
-  const response = await openrouter.chat.completions.create({
-    model: "google/gemini-2.5-flash",
-    messages: [
-      { role: "system", content: folioAgentSystemPrompt },
-      { role: "user", content: folioRevisePrompt(portfolio, request) },
-    ],
-    response_format: { type: "json_object" },
-  });
-  return response.choices[0].message.content;
+  return completeJsonChat([
+    { role: "system", content: folioAgentSystemPrompt },
+    { role: "user", content: folioRevisePrompt(portfolio, request) },
+  ]);
 }
