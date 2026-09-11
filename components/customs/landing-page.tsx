@@ -18,7 +18,7 @@ export function LandingPage() {
             className="absolute inset-0 h-full w-full object-cover dark:hidden"
           />
           <img
-            src="https://i.pinimg.com/1200x/40/65/fa/4065fa9378842ed2757606f7658d281f.jpg"
+            src="https://i.pinimg.com/736x/70/6d/bf/706dbf41fcb54c4d0cf81811b9da1e1b.jpg"
             alt=""
             className="absolute inset-0 hidden h-full w-full object-cover dark:block"
           />
