@@ -17,6 +17,12 @@ export const auth = betterAuth({
     provider: "pg",
     schema,
   }),
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60,
+    },
+  },
   emailAndPassword: {
     enabled: true,
     minPasswordLength: PASSWORD_MIN,
