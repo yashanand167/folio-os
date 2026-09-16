@@ -36,7 +36,7 @@ export default function FloatingBar({
       >
         <ChevronLeft className="size-4" />
       </button>
-      <p className="min-w-28 text-center text-sm font-medium">Type: {label}</p>
+      <p className="min-w-28 text-center text-sm">Type: {label}</p>
       <button
         type="button"
         aria-label="Next template"
