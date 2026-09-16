@@ -22,6 +22,12 @@ const SUGGESTED_SKILLS = [
   "Figma",
   "Docker",
   "AI / LLMs",
+  "RAG",
+  "Prompt Engineering",
+  "Redis",
+  "System Design",
+  "Microservices",
+  "Testing",
 ];
 
 export default function SkillsInfo() {
