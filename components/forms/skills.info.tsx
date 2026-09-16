@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { usePortfolioStore } from "@/stores/portfolio.store";
 import { cn } from "@/lib/utils";
-
-const fieldClassName =
-  "w-full border border-white/20 bg-transparent px-3 py-2 text-sm text-white outline-none placeholder:text-neutral-600 focus:border-white transition-colors";
+import {
+  addButtonClassName,
+  fieldClassName,
+  insetPanelClassName,
+} from "@/components/forms/styles";
 
 const SUGGESTED_SKILLS = [
   "React",
@@ -53,26 +55,25 @@ export default function SkillsInfo() {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
-        <h2 className="text-base font-medium text-white tracking-tight">
-          Skills & Specializations
+        <h2 className="text-base font-medium tracking-tight text-black dark:text-white">
+          Skills
         </h2>
-        <p className="text-xs text-neutral-400">
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">
           Technologies, frameworks, and skillsets.
         </p>
       </div>
 
-      {/* Custom Skill Input */}
-      <form onSubmit={handleSubmit} className="p-4 border border-white/15 bg-neutral-950 flex flex-col gap-3">
-        <span className="text-xs font-mono uppercase tracking-wider text-white">
-          + Add Skill
+      <form onSubmit={handleSubmit} className={insetPanelClassName}>
+        <span className="text-xs tracking-wider text-black uppercase dark:text-white">
+          + Add skill
         </span>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="sm:col-span-2">
             <input
               value={skillName}
               onChange={(e) => setSkillName(e.target.value)}
-              placeholder="Skill Name (e.g. React) *"
+              placeholder="Skill name (e.g. React) *"
               className={fieldClassName}
               required
             />
@@ -87,22 +88,20 @@ export default function SkillsInfo() {
           </div>
         </div>
 
-        <button
-          type="submit"
-          className="self-end px-4 py-1.5 bg-white text-black text-xs font-mono uppercase font-semibold hover:bg-neutral-200 transition-colors cursor-pointer"
-        >
-          Add Skill
+        <button type="submit" className={addButtonClassName}>
+          Add skill
         </button>
       </form>
 
-      {/* Suggested Skills */}
       <div className="flex flex-col gap-2">
-        <span className="text-xs font-mono text-neutral-400 uppercase tracking-wider">
-          Quick Suggestions
+        <span className="text-xs tracking-wider text-neutral-400 uppercase">
+          Quick suggestions
         </span>
         <div className="flex flex-wrap gap-1.5">
           {SUGGESTED_SKILLS.map((item) => {
-            const isAdded = skills.some((s) => s.name?.toLowerCase() === item.toLowerCase());
+            const isAdded = skills.some(
+              (s) => s.name?.toLowerCase() === item.toLowerCase(),
+            );
 
             return (
               <button
@@ -111,10 +110,10 @@ export default function SkillsInfo() {
                 disabled={isAdded}
                 onClick={() => handleAddSkill(item)}
                 className={cn(
-                  "px-2.5 py-1 text-xs font-mono border transition-colors outline-none",
+                  "rounded-lg border px-2.5 py-1 text-xs outline-none transition-colors",
                   isAdded
-                    ? "border-white/10 text-neutral-600 cursor-not-allowed"
-                    : "border-white/20 text-neutral-300 hover:border-white hover:text-white cursor-pointer"
+                    ? "cursor-not-allowed border-black/10 text-neutral-400 dark:border-white/10 dark:text-neutral-600"
+                    : "cursor-pointer border-black/15 text-neutral-700 hover:border-black hover:text-black dark:border-white/20 dark:text-neutral-300 dark:hover:border-white dark:hover:text-white",
                 )}
               >
                 + {item}
@@ -124,28 +123,27 @@ export default function SkillsInfo() {
         </div>
       </div>
 
-      {/* Added Skills */}
-      <div className="pt-3 border-t border-white/10 flex flex-col gap-3">
-        <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-          Added Skills ({skills.length})
+      <div className="flex flex-col gap-3 border-t border-black/10 pt-3 dark:border-white/10">
+        <span className="text-xs tracking-wider text-neutral-400 uppercase">
+          Added skills ({skills.length})
         </span>
 
         <div className="flex flex-wrap gap-2">
           {skills.map((skill) => (
             <div
               key={skill.id}
-              className="px-3 py-1 border border-white/20 bg-transparent text-xs text-white flex items-center gap-2"
+              className="flex items-center gap-2 rounded-lg border border-black/15 px-3 py-1 text-xs text-black dark:border-white/20 dark:text-white"
             >
               <span>{skill.name}</span>
-              {skill.category && (
-                <span className="text-[10px] font-mono text-neutral-500 uppercase">
+              {skill.category ? (
+                <span className="text-[10px] text-neutral-500 uppercase">
                   [{skill.category}]
                 </span>
-              )}
+              ) : null}
               <button
                 type="button"
                 onClick={() => removeSkill(skill.id)}
-                className="text-neutral-500 hover:text-white font-mono ml-1 cursor-pointer"
+                className="ml-1 text-neutral-500 hover:text-black dark:hover:text-white"
               >
                 ×
               </button>
@@ -156,4 +154,3 @@ export default function SkillsInfo() {
     </div>
   );
 }
-

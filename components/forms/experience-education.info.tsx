@@ -1,11 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { usePortfolioStore, DraftExperience, DraftEducation } from "@/stores/portfolio.store";
+import {
+  usePortfolioStore,
+  type DraftEducation,
+  type DraftExperience,
+} from "@/stores/portfolio.store";
 import { cn } from "@/lib/utils";
-
-const fieldClassName =
-  "w-full border border-white/20 bg-transparent px-3 py-2 text-sm text-white outline-none placeholder:text-neutral-600 focus:border-white transition-colors";
+import {
+  addButtonClassName,
+  fieldClassName,
+  insetPanelClassName,
+  listItemClassName,
+} from "@/components/forms/styles";
 
 export default function ExperienceEducationInfo() {
   const experiences = usePortfolioStore((state) => state.draft.experiences ?? []);
@@ -86,24 +93,23 @@ export default function ExperienceEducationInfo() {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
-        <h2 className="text-base font-medium text-white tracking-tight">
-          Experience & Education
+        <h2 className="text-base font-medium tracking-tight text-black dark:text-white">
+          Experience & education
         </h2>
-        <p className="text-xs text-neutral-400">
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">
           Career history and academic qualifications.
         </p>
       </div>
 
-      {/* Tabs */}
-      <div className="flex border border-white/20">
+      <div className="flex overflow-hidden rounded-lg border border-black/15 dark:border-white/20">
         <button
           type="button"
           onClick={() => setTab("experience")}
           className={cn(
-            "flex-1 py-2 px-3 text-xs font-mono uppercase tracking-wider transition-all cursor-pointer",
+            "flex-1 px-3 py-2 text-xs tracking-wider uppercase transition-all",
             tab === "experience"
-              ? "bg-white text-black font-semibold"
-              : "bg-transparent text-neutral-400 hover:text-white"
+              ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+              : "bg-transparent text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white",
           )}
         >
           Work ({experiences.length})
@@ -112,25 +118,24 @@ export default function ExperienceEducationInfo() {
           type="button"
           onClick={() => setTab("education")}
           className={cn(
-            "flex-1 py-2 px-3 text-xs font-mono uppercase tracking-wider transition-all border-l border-white/20 cursor-pointer",
+            "flex-1 border-l border-black/15 px-3 py-2 text-xs tracking-wider uppercase transition-all dark:border-white/20",
             tab === "education"
-              ? "bg-white text-black font-semibold"
-              : "bg-transparent text-neutral-400 hover:text-white"
+              ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+              : "bg-transparent text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white",
           )}
         >
           Education ({education.length})
         </button>
       </div>
 
-      {/* Experience Tab */}
-      {tab === "experience" && (
+      {tab === "experience" ? (
         <div className="flex flex-col gap-4">
-          <form onSubmit={handleAddExperience} className="p-4 border border-white/15 bg-neutral-950 flex flex-col gap-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-white">
-              + Add Work Entry
+          <form onSubmit={handleAddExperience} className={insetPanelClassName}>
+            <span className="text-xs tracking-wider text-black uppercase dark:text-white">
+              + Add work entry
             </span>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <input
                 value={expForm.company}
                 onChange={(e) => setExpForm({ ...expForm, company: e.target.value })}
@@ -147,58 +152,59 @@ export default function ExperienceEducationInfo() {
               />
               <input
                 value={expForm.startDate}
-                onChange={(e) => setExpForm({ ...expForm, startDate: e.target.value })}
-                placeholder="Start Date (e.g. 2022)"
+                onChange={(e) =>
+                  setExpForm({ ...expForm, startDate: e.target.value })
+                }
+                placeholder="Start date (e.g. 2022)"
                 className={fieldClassName}
               />
               <input
                 value={expForm.endDate}
                 onChange={(e) => setExpForm({ ...expForm, endDate: e.target.value })}
-                placeholder="End Date (e.g. Present)"
+                placeholder="End date (e.g. Present)"
                 className={fieldClassName}
               />
             </div>
 
             <textarea
               value={expForm.description}
-              onChange={(e) => setExpForm({ ...expForm, description: e.target.value })}
+              onChange={(e) =>
+                setExpForm({ ...expForm, description: e.target.value })
+              }
               placeholder="Description or key achievements..."
               rows={2}
               className={`${fieldClassName} resize-none`}
             />
 
-            <button
-              type="submit"
-              className="self-end px-4 py-1.5 bg-white text-black text-xs font-mono uppercase font-semibold hover:bg-neutral-200 transition-colors cursor-pointer"
-            >
-              Add Experience
+            <button type="submit" className={addButtonClassName}>
+              Add experience
             </button>
           </form>
 
-          {/* List */}
           <div className="flex flex-col gap-2">
             {experiences.map((exp) => (
-              <div
-                key={exp.id}
-                className="p-3 border border-white/15 bg-transparent flex items-start justify-between gap-3"
-              >
+              <div key={exp.id} className={listItemClassName}>
                 <div className="flex flex-col gap-0.5">
-                  <div className="flex items-center gap-2 text-sm text-white font-medium">
+                  <div className="flex items-center gap-2 text-sm font-medium text-black dark:text-white">
                     <span>{exp.role}</span>
-                    <span className="text-neutral-400 font-mono text-xs">@ {exp.company}</span>
+                    <span className="text-xs text-neutral-500">
+                      @ {exp.company}
+                    </span>
                   </div>
-                  <span className="text-[11px] font-mono text-neutral-500">
+                  <span className="text-[11px] text-neutral-500">
                     {exp.startDate} – {exp.endDate || "Present"}
                   </span>
-                  {exp.description && (
-                    <p className="text-xs text-neutral-300 pt-1">{exp.description}</p>
-                  )}
+                  {exp.description ? (
+                    <p className="pt-1 text-xs text-neutral-600 dark:text-neutral-300">
+                      {exp.description}
+                    </p>
+                  ) : null}
                 </div>
 
                 <button
                   type="button"
                   onClick={() => removeExperience(exp.id)}
-                  className="text-xs text-neutral-500 hover:text-white font-mono underline cursor-pointer"
+                  className="text-xs text-neutral-500 underline hover:text-black dark:hover:text-white"
                 >
                   Delete
                 </button>
@@ -206,20 +212,19 @@ export default function ExperienceEducationInfo() {
             ))}
           </div>
         </div>
-      )}
-
-      {/* Education Tab */}
-      {tab === "education" && (
+      ) : (
         <div className="flex flex-col gap-4">
-          <form onSubmit={handleAddEducation} className="p-4 border border-white/15 bg-neutral-950 flex flex-col gap-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-white">
-              + Add Education Entry
+          <form onSubmit={handleAddEducation} className={insetPanelClassName}>
+            <span className="text-xs tracking-wider text-black uppercase dark:text-white">
+              + Add education entry
             </span>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <input
                 value={eduForm.institution}
-                onChange={(e) => setEduForm({ ...eduForm, institution: e.target.value })}
+                onChange={(e) =>
+                  setEduForm({ ...eduForm, institution: e.target.value })
+                }
                 placeholder="Institution *"
                 className={fieldClassName}
                 required
@@ -233,39 +238,36 @@ export default function ExperienceEducationInfo() {
               />
               <input
                 value={eduForm.startDate}
-                onChange={(e) => setEduForm({ ...eduForm, startDate: e.target.value })}
-                placeholder="Start Year"
+                onChange={(e) =>
+                  setEduForm({ ...eduForm, startDate: e.target.value })
+                }
+                placeholder="Start year"
                 className={fieldClassName}
               />
               <input
                 value={eduForm.endDate}
                 onChange={(e) => setEduForm({ ...eduForm, endDate: e.target.value })}
-                placeholder="End Year"
+                placeholder="End year"
                 className={fieldClassName}
               />
             </div>
 
-            <button
-              type="submit"
-              className="self-end px-4 py-1.5 bg-white text-black text-xs font-mono uppercase font-semibold hover:bg-neutral-200 transition-colors cursor-pointer"
-            >
-              Add Degree
+            <button type="submit" className={addButtonClassName}>
+              Add degree
             </button>
           </form>
 
-          {/* List */}
           <div className="flex flex-col gap-2">
             {education.map((edu) => (
-              <div
-                key={edu.id}
-                className="p-3 border border-white/15 bg-transparent flex items-start justify-between gap-3"
-              >
+              <div key={edu.id} className={listItemClassName}>
                 <div className="flex flex-col gap-0.5">
-                  <div className="flex items-center gap-2 text-sm text-white font-medium">
+                  <div className="flex items-center gap-2 text-sm font-medium text-black dark:text-white">
                     <span>{edu.degree}</span>
-                    <span className="text-neutral-400 font-mono text-xs">@ {edu.institution}</span>
+                    <span className="text-xs text-neutral-500">
+                      @ {edu.institution}
+                    </span>
                   </div>
-                  <span className="text-[11px] font-mono text-neutral-500">
+                  <span className="text-[11px] text-neutral-500">
                     {edu.startDate} – {edu.endDate || "Present"}
                   </span>
                 </div>
@@ -273,7 +275,7 @@ export default function ExperienceEducationInfo() {
                 <button
                   type="button"
                   onClick={() => removeEducation(edu.id)}
-                  className="text-xs text-neutral-500 hover:text-white font-mono underline cursor-pointer"
+                  className="text-xs text-neutral-500 underline hover:text-black dark:hover:text-white"
                 >
                   Delete
                 </button>
@@ -285,4 +287,3 @@ export default function ExperienceEducationInfo() {
     </div>
   );
 }
-
