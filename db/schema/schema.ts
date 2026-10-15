@@ -107,6 +107,7 @@ export const portfolio = pgTable(
     resumeUrl: text("resume_url"),
     github: text("github"),
     linkedin: text("linkedin"),
+    username: text("username").unique(),
     twitter: text("twitter"),
     website: text("website"),
     email: text("email"),

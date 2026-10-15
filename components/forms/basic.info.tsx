@@ -1,15 +1,36 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { usePortfolioStore } from "@/stores/portfolio.store";
 import { fieldClassName } from "@/components/forms/styles";
 
-export default function BasicInfo() {
+type BasicInfoProps = {
+  profileImageFile?: File | null;
+  onProfileImageFileChange?: (file: File | null) => void;
+};
+
+export default function BasicInfo({
+  profileImageFile,
+  onProfileImageFileChange,
+}: BasicInfoProps) {
   const name = usePortfolioStore((state) => state.draft.name ?? "");
   const profession = usePortfolioStore((state) => state.draft.profession ?? "");
   const description = usePortfolioStore((state) => state.draft.description ?? "");
   const socialLinks = usePortfolioStore((state) => state.draft.socialLinks ?? {});
   const patchDraft = usePortfolioStore((state) => state.patchDraft);
   const patchSocialLinks = usePortfolioStore((state) => state.patchSocialLinks);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!profileImageFile) {
+      setPreviewUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(profileImageFile);
+    setPreviewUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [profileImageFile]);
 
   return (
     <form
@@ -43,6 +64,25 @@ export default function BasicInfo() {
           placeholder="Designer & Developer"
           className={fieldClassName}
         />
+      </label>
+
+      <label className="flex flex-col gap-1.5 text-sm">
+        <span className="text-neutral-500">Profile photo</span>
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          onChange={(event) => {
+            onProfileImageFileChange?.(event.target.files?.[0] ?? null);
+          }}
+          className="text-sm text-neutral-600 file:mr-3 file:rounded-lg file:border-0 file:bg-black file:px-3 file:py-1.5 file:text-xs file:text-white dark:text-neutral-400 dark:file:bg-white dark:file:text-black"
+        />
+        {previewUrl ? (
+          <img
+            src={previewUrl}
+            alt="Profile preview"
+            className="mt-1 size-16 rounded-lg object-cover"
+          />
+        ) : null}
       </label>
 
       <label className="flex flex-col gap-1.5 text-sm">

@@ -18,11 +18,14 @@ export default function FormPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
+
   const name = usePortfolioStore((state) => state.draft.name ?? "");
   const profession = usePortfolioStore((state) => state.draft.profession ?? "");
   const portfolioType = usePortfolioStore((state) => state.draft.portfolioType);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep === 1 && (!name.trim() || !profession.trim())) {
       setError("Add your name and profession to continue.");
       return;
@@ -33,7 +36,51 @@ export default function FormPage() {
         setError("Pick a template to finish.");
         return;
       }
-      router.push("/dashboard");
+
+      const draft = usePortfolioStore.getState().draft;
+      const formData = new FormData();
+      formData.append(
+        "data",
+        JSON.stringify({
+          portfolioType: draft.portfolioType,
+          name: draft.name,
+          profession: draft.profession,
+          description: draft.description,
+          profileImage: draft.profileImage,
+          resumeUrl: draft.resumeUrl,
+          socialLinks: draft.socialLinks,
+          experiences: draft.experiences,
+          education: draft.education,
+          skills: draft.skills,
+          projects: draft.projects,
+        }),
+      );
+      if (profileImageFile) {
+        formData.append("profileImage", profileImageFile);
+      }
+
+      setPending(true);
+      setError(null);
+      try {
+        const response = await fetch("/api/portfolio", {
+          method: "POST",
+          body: formData,
+        });
+        const payload = (await response.json()) as { error?: string };
+
+        if (!response.ok) {
+          setError(payload.error ?? "Could not save your portfolio.");
+          return;
+        }
+
+        usePortfolioStore.getState().clearDraft();
+        router.push("/dashboard");
+        router.refresh();
+      } catch {
+        setError("Could not save your portfolio.");
+      } finally {
+        setPending(false);
+      }
       return;
     }
 
@@ -73,7 +120,12 @@ export default function FormPage() {
           />
 
           <div className="mt-8">
-            {currentStep === 1 ? <BasicInfo /> : null}
+            {currentStep === 1 ? (
+              <BasicInfo
+                profileImageFile={profileImageFile}
+                onProfileImageFileChange={setProfileImageFile}
+              />
+            ) : null}
             {currentStep === 2 ? <ExperienceEducationInfo /> : null}
             {currentStep === 3 ? <SkillsInfo /> : null}
             {currentStep === 4 ? <TemplateInfo /> : null}
@@ -94,10 +146,15 @@ export default function FormPage() {
             </button>
             <button
               type="button"
-              onClick={handleNext}
-              className="rounded-lg bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black"
+              onClick={() => void handleNext()}
+              disabled={pending}
+              className="rounded-lg bg-black px-4 py-2 text-sm text-white disabled:opacity-50 dark:bg-white dark:text-black"
             >
-              {currentStep === totalSteps ? "Finish" : "Continue"}
+              {currentStep === totalSteps
+                ? pending
+                  ? "Saving…"
+                  : "Finish"
+                : "Continue"}
             </button>
           </div>
         </div>

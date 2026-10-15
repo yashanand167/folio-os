@@ -41,6 +41,16 @@ function wordsBetween(min: number, max: number, label: string) {
 
 const optionalHttpUrl = z.httpUrl().optional();
 
+function emptyToUndefined(value: unknown) {
+  if (typeof value !== "string") return value;
+  const trimmed = value.trim();
+  return trimmed === "" ? undefined : trimmed;
+}
+
+function optionalTrimmed<T extends z.ZodType>(schema: T) {
+  return z.preprocess(emptyToUndefined, schema);
+}
+
 export const experienceSchema = z.object({
   id: z.string().min(1),
   company: z.string().min(1),
@@ -108,10 +118,70 @@ export const portfolioSchema = z.object({
   profileImage: optionalHttpUrl,
   resumeUrl: optionalHttpUrl,
   socialLinks: socialLinksSchema,
+  username: z.string().min(1),
   experiences: z.array(experienceSchema),
   education: z.array(educationSchema),
   skills: z.array(skillSchema),
   projects: z.array(projectSchema),
+});
+
+export const createExperienceSchema = experienceSchema
+  .omit({ id: true })
+  .extend({
+    id: z.string().min(1).optional(),
+    location: optionalTrimmed(z.string().min(1).optional()),
+    endDate: optionalTrimmed(z.string().min(1).optional()),
+    description: optionalTrimmed(
+      wordsBetween(5, 40, "Experience description").optional(),
+    ),
+  });
+
+export const createEducationSchema = educationSchema
+  .omit({ id: true })
+  .extend({
+    id: z.string().min(1).optional(),
+    field: optionalTrimmed(z.string().min(1).optional()),
+    endDate: optionalTrimmed(z.string().min(1).optional()),
+    description: optionalTrimmed(
+      wordsBetween(5, 40, "Education description").optional(),
+    ),
+  });
+
+export const createSkillSchema = skillSchema.omit({ id: true }).extend({
+  id: z.string().min(1).optional(),
+  category: optionalTrimmed(z.string().min(1).optional()),
+});
+
+export const createProjectSchema = projectSchema.omit({ id: true }).extend({
+  id: z.string().min(1).optional(),
+  description: optionalTrimmed(
+    wordsBetween(5, 40, "Project description").optional(),
+  ),
+  url: optionalTrimmed(optionalHttpUrl),
+  image: optionalTrimmed(optionalHttpUrl),
+});
+
+export const createSocialLinksSchema = z.object({
+  github: optionalTrimmed(socialLinksSchema.shape.github),
+  linkedin: optionalTrimmed(socialLinksSchema.shape.linkedin),
+  twitter: optionalTrimmed(socialLinksSchema.shape.twitter),
+  website: optionalTrimmed(socialLinksSchema.shape.website),
+  email: optionalTrimmed(socialLinksSchema.shape.email),
+});
+
+export const createPortfolioSchema = z.object({
+  portfolioType: portfolioTypeSchema,
+  name: z.string().trim().min(1),
+  profession: z.string().trim().min(1),
+  description: optionalTrimmed(wordsBetween(10, 40, "Description").optional()),
+  profileImage: optionalTrimmed(optionalHttpUrl),
+  resumeUrl: optionalTrimmed(optionalHttpUrl),
+  socialLinks: createSocialLinksSchema.optional().default({}),
+  experiences: z.array(createExperienceSchema).default([]),
+  education: z.array(createEducationSchema).default([]),
+  skills: z.array(createSkillSchema).default([]),
+  projects: z.array(createProjectSchema).default([]),
+  username: z.string().trim().min(1),
 });
 
 export type Experience = z.infer<typeof experienceSchema>;
@@ -120,3 +190,4 @@ export type Skill = z.infer<typeof skillSchema>;
 export type Project = z.infer<typeof projectSchema>;
 export type SocialLinks = z.infer<typeof socialLinksSchema>;
 export type Portfolio = z.infer<typeof portfolioSchema>;
+export type CreatePortfolioInput = z.infer<typeof createPortfolioSchema>;
