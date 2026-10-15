@@ -4,6 +4,7 @@ export const samplePortfolio: Portfolio = {
   id: "design-focused-preview",
   portfolioType: "design-focused",
   name: "Alex Rivera",
+  username: "alexrivera",
   profession: "Product Designer",
   profileImage:
     "https://i.pinimg.com/1200x/36/9d/8c/369d8c1a01f21c357fd77dd6538eaea5.jpg",

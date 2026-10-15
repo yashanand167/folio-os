@@ -15,6 +15,7 @@ export default function BasicInfo({
   onProfileImageFileChange,
 }: BasicInfoProps) {
   const name = usePortfolioStore((state) => state.draft.name ?? "");
+  const username = usePortfolioStore((state) => state.draft.username ?? "");
   const profession = usePortfolioStore((state) => state.draft.profession ?? "");
   const description = usePortfolioStore((state) => state.draft.description ?? "");
   const socialLinks = usePortfolioStore((state) => state.draft.socialLinks ?? {});
@@ -54,6 +55,24 @@ export default function BasicInfo({
           placeholder="Alex Rivera"
           className={fieldClassName}
         />
+      </label>
+
+      <label className="flex flex-col gap-1.5 text-sm">
+        <span className="text-neutral-500">Username</span>
+        <input
+          value={username}
+          onChange={(event) =>
+            patchDraft({
+              username: event.target.value.toLowerCase().replace(/\s+/g, "-"),
+            })
+          }
+          placeholder="alexrivera"
+          autoComplete="username"
+          className={fieldClassName}
+        />
+        <span className="text-xs text-neutral-400">
+          Unique identifier for this portfolio. Letters, numbers, and hyphens.
+        </span>
       </label>
 
       <label className="flex flex-col gap-1.5 text-sm">

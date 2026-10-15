@@ -10,6 +10,17 @@ export const portfolioTypeSchema = z.enum(portfolioTypes);
 
 export type PortfolioType = z.infer<typeof portfolioTypeSchema>;
 
+export const usernameSchema = z
+  .string()
+  .trim()
+  .toLowerCase()
+  .min(3, "Username must be at least 3 characters")
+  .max(32, "Username must be at most 32 characters")
+  .regex(
+    /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+    "Use lowercase letters, numbers, and hyphens",
+  );
+
 export const socialLinkPatterns = {
   github:
     /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?\/?$/i,
@@ -118,7 +129,7 @@ export const portfolioSchema = z.object({
   profileImage: optionalHttpUrl,
   resumeUrl: optionalHttpUrl,
   socialLinks: socialLinksSchema,
-  username: z.string().min(1),
+  username: usernameSchema,
   experiences: z.array(experienceSchema),
   education: z.array(educationSchema),
   skills: z.array(skillSchema),
@@ -181,7 +192,7 @@ export const createPortfolioSchema = z.object({
   education: z.array(createEducationSchema).default([]),
   skills: z.array(createSkillSchema).default([]),
   projects: z.array(createProjectSchema).default([]),
-  username: z.string().trim().min(1),
+  username: usernameSchema,
 });
 
 export type Experience = z.infer<typeof experienceSchema>;

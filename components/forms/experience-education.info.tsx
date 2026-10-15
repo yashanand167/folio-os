@@ -7,12 +7,22 @@ import {
   type DraftExperience,
 } from "@/stores/portfolio.store";
 import { cn } from "@/lib/utils";
+import { format, isValid, parseISO } from "date-fns";
+import { DatePicker } from "@/components/forms/date-picker";
 import {
   addButtonClassName,
   fieldClassName,
   insetPanelClassName,
   listItemClassName,
 } from "@/components/forms/styles";
+
+function formatDateLabel(value?: string) {
+  if (!value) return "Present";
+  if (value === "Present") return "Present";
+  const parsed = parseISO(value);
+  if (isValid(parsed)) return format(parsed, "MMM yyyy");
+  return value;
+}
 
 export default function ExperienceEducationInfo() {
   const experiences = usePortfolioStore((state) => state.draft.experiences ?? []);
@@ -44,14 +54,14 @@ export default function ExperienceEducationInfo() {
 
   const handleAddExperience = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!expForm.company || !expForm.role) return;
+    if (!expForm.company || !expForm.role || !expForm.startDate) return;
 
     upsertExperience({
       id: expForm.id || `exp_${Date.now()}`,
       company: expForm.company,
       role: expForm.role,
       location: expForm.location || "",
-      startDate: expForm.startDate || "2022",
+      startDate: expForm.startDate,
       endDate: expForm.endDate || "Present",
       description: expForm.description || "",
     });
@@ -68,15 +78,15 @@ export default function ExperienceEducationInfo() {
 
   const handleAddEducation = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!eduForm.institution || !eduForm.degree) return;
+    if (!eduForm.institution || !eduForm.degree || !eduForm.startDate) return;
 
     upsertEducation({
       id: eduForm.id || `edu_${Date.now()}`,
       institution: eduForm.institution,
       degree: eduForm.degree,
       field: eduForm.field || "",
-      startDate: eduForm.startDate || "2018",
-      endDate: eduForm.endDate || "2022",
+      startDate: eduForm.startDate,
+      endDate: eduForm.endDate || undefined,
       description: eduForm.description || "",
     });
 
@@ -150,19 +160,16 @@ export default function ExperienceEducationInfo() {
                 className={fieldClassName}
                 required
               />
-              <input
+              <DatePicker
                 value={expForm.startDate}
-                onChange={(e) =>
-                  setExpForm({ ...expForm, startDate: e.target.value })
-                }
-                placeholder="Start date (e.g. 2022)"
-                className={fieldClassName}
+                onChange={(startDate) => setExpForm({ ...expForm, startDate })}
+                placeholder="Start date"
               />
-              <input
+              <DatePicker
                 value={expForm.endDate}
-                onChange={(e) => setExpForm({ ...expForm, endDate: e.target.value })}
-                placeholder="End date (e.g. Present)"
-                className={fieldClassName}
+                onChange={(endDate) => setExpForm({ ...expForm, endDate })}
+                placeholder="End date"
+                allowPresent
               />
             </div>
 
@@ -192,7 +199,8 @@ export default function ExperienceEducationInfo() {
                     </span>
                   </div>
                   <span className="text-[11px] text-neutral-500">
-                    {exp.startDate} – {exp.endDate || "Present"}
+                    {formatDateLabel(exp.startDate)} –{" "}
+                    {formatDateLabel(exp.endDate)}
                   </span>
                   {exp.description ? (
                     <p className="pt-1 text-xs text-neutral-600 dark:text-neutral-300">
@@ -236,19 +244,16 @@ export default function ExperienceEducationInfo() {
                 className={fieldClassName}
                 required
               />
-              <input
+              <DatePicker
                 value={eduForm.startDate}
-                onChange={(e) =>
-                  setEduForm({ ...eduForm, startDate: e.target.value })
-                }
-                placeholder="Start year"
-                className={fieldClassName}
+                onChange={(startDate) => setEduForm({ ...eduForm, startDate })}
+                placeholder="Start date"
               />
-              <input
+              <DatePicker
                 value={eduForm.endDate}
-                onChange={(e) => setEduForm({ ...eduForm, endDate: e.target.value })}
-                placeholder="End year"
-                className={fieldClassName}
+                onChange={(endDate) => setEduForm({ ...eduForm, endDate })}
+                placeholder="End date"
+                allowPresent
               />
             </div>
 
@@ -268,7 +273,8 @@ export default function ExperienceEducationInfo() {
                     </span>
                   </div>
                   <span className="text-[11px] text-neutral-500">
-                    {edu.startDate} – {edu.endDate || "Present"}
+                    {formatDateLabel(edu.startDate)} –{" "}
+                    {formatDateLabel(edu.endDate)}
                   </span>
                 </div>
 

@@ -4,6 +4,7 @@ export const samplePortfolio: Portfolio = {
   id: "minimal-preview",
   portfolioType: "minimal",
   name: "Alex Rivera",
+  username: "alexrivera",
   profession: "Designer & Developer",
   profileImage:
     "https://i.pinimg.com/1200x/8d/dd/39/8ddd39b97945c637a456c09810d8944e.jpg",

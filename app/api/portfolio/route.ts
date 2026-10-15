@@ -103,6 +103,17 @@ export async function POST(request: Request) {
 
   const portfolioId = existing?.id ?? newId();
 
+  const usernameOwner = await db.query.portfolio.findFirst({
+    where: eq(portfolio.username, input.username),
+  });
+
+  if (usernameOwner && usernameOwner.id !== portfolioId) {
+    return NextResponse.json(
+      { error: "That username is already taken." },
+      { status: 409 },
+    );
+  }
+
   const portfolioRow = {
     id: portfolioId,
     userId: session.user.id,

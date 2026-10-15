@@ -22,12 +22,16 @@ export default function FormPage() {
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
 
   const name = usePortfolioStore((state) => state.draft.name ?? "");
+  const username = usePortfolioStore((state) => state.draft.username ?? "");
   const profession = usePortfolioStore((state) => state.draft.profession ?? "");
   const portfolioType = usePortfolioStore((state) => state.draft.portfolioType);
 
   const handleNext = async () => {
-    if (currentStep === 1 && (!name.trim() || !profession.trim())) {
-      setError("Add your name and profession to continue.");
+    if (
+      currentStep === 1 &&
+      (!name.trim() || !username.trim() || !profession.trim())
+    ) {
+      setError("Add your name, username, and profession to continue.");
       return;
     }
 
@@ -44,6 +48,7 @@ export default function FormPage() {
         JSON.stringify({
           portfolioType: draft.portfolioType,
           name: draft.name,
+          username: draft.username,
           profession: draft.profession,
           description: draft.description,
           profileImage: draft.profileImage,

@@ -19,6 +19,7 @@ export type PortfolioDraft = {
   id?: string;
   portfolioType?: PortfolioType;
   name?: string;
+  username?: string;
   profession?: string;
   description?: string;
   profileImage?: string;
@@ -49,6 +50,7 @@ function isDraftEmpty(draft: PortfolioDraft) {
     !draft.id &&
     !draft.portfolioType &&
     !draft.name &&
+    !draft.username &&
     !draft.profession &&
     !draft.description &&
     !draft.profileImage &&
